@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+	File: gtfs_urls.xml
+	Author: Ben Zoon
+	Data: December 20, 2011
+
+	Description: This is the configuration script for the update script
+	update.py. The purpose of this file is to list all the URLs that the 
+	script will download, check against the current data, and update.
+
+	Also, there are a few setup variables defined here.
+-->
+<gtfs>
+	<database name="osu" hostname="localhost" user="root" pass="root123root" />
+
+	<feedpath value="./feeds" />
+
+	<entry dirname="curry" url="http://www.gtfs-data-exchange.com/agency/curry-public-transit/latest.zip" />
+</gtfs>
