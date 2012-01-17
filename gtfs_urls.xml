@@ -11,9 +11,10 @@
 	Also, there are a few setup variables defined here.
 -->
 <gtfs>
-	<database name="osu" hostname="localhost" user="root" pass="root123root" />
+	<database name="osu" host="localhost" user="root" pass="root123root" />
 
-	<feedpath value="./feeds" />
+	<datapath value="./feeds" />
 
 	<entry dirname="curry" url="http://www.gtfs-data-exchange.com/agency/curry-public-transit/latest.zip" />
+	<entry dirname="trimet" url="http://www.developer.trimet.org/schedule/gtfs.zip" />
 </gtfs>
