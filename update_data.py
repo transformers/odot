@@ -6,7 +6,9 @@
 # Description: This is the script that updates the gtfs data
 
 import os
+import csv
 import pprint
+import MySQLdb
 from xml.dom import minidom
 
 DB_HOST = ""
@@ -51,7 +53,7 @@ def read_config ():
 # Remove the data directory and recreate it so it can be filled with new data.
 # NOTE: This solution is not optimal because it does not preserve old data. 
 #  Old data can be saved later if needed.
-def init_directories ():
+def download_data ():
 	if os.path.exists(data_path):
 		os.system("rm -rf " + data_path)
 	#print "%s%s%s %s" % (DB_HOST, DB_USER, DB_PASS, data_path)
@@ -62,17 +64,43 @@ def init_directories ():
 		os.system("mkdir " + dest)
 		os.system("wget -P " + dest + " " + url)
 		os.system("unzip -d " + dest + " " + dest + "/*.zip")
+		os.system("rm -f " + dest + "/*.zip")
 
-def update_entry (dirname, url):
-	download_data (dirname, url);
-	#update_data (dirname)
+def update_data ():
+	for dirname in entries.keys():
+		path = data_path + "/" + dirname
+		for file in os.listdir(path):
+			update_data_file(path, file)
 
-def download_data (dirname, url):
-	pass
+def update_data_file (path, file):
+	csv_reader = csv.reader(open(path + "/" + file, 'rb'))
+	row_count = 0
+        fieldnames = []
+	table = file[:-4]
+	for row in csv_reader:
+		if row_count == 0:
+			fieldnames = row
+		else:
+			update_row (table, fieldnames, row)
+		row_count += 1
+
+def update_row (table, fieldnames, row):
+	if table == "agency":
+		cursor = run_query ("select * from agency")
+		data = cursor.fetchone()
+		print data	
+
+def run_query (query):
+	db = MySQLdb.connect(DB_HOST, DB_USER, DB_PASS, "cs461-team35")
+	cursor = db.cursor()
+	cursor.execute(query)
+	db.close()
+	return cursor
 
 if read_config() == 1:
 	print "ERROR: could not read config file."
-init_directories()
+download_data()
+update_data()
 #update_entry("curry", "something")
 #print "%s%s%s %s" % (DB_HOST, DB_USER, DB_PASS, data_path)
 #pprint.pprint(entries)
