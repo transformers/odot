@@ -17,4 +17,5 @@
 
 	<entry dirname="curry" url="http://www.gtfs-data-exchange.com/agency/curry-public-transit/latest.zip" />
 	<!--<entry dirname="trimet" url="http://www.developer.trimet.org/schedule/gtfs.zip" />-->
+	<entry dirname="yamhill" url="http://oregon-gtfs.com/gtfs_data/yamhill-or-us/google_transit.zip" />
 </gtfs>

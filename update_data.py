@@ -86,9 +86,27 @@ def update_data_file (path, file):
 
 def update_row (table, fieldnames, row):
 	if table == "agency":
-		cursor = run_query ("select * from agency")
+		cursor = run_query ("select * from agency where agency_id='" + row[0] + "'")
 		data = cursor.fetchone()
-		print data	
+		if data is None:
+			query = "insert into " + table + " ("
+			for name in fieldnames:
+				query += name + ", "
+			query = query[:-2] + ") values ("
+			for value in row:
+				query += "'" + value + "', "
+			query = query[:-2] + ")"
+			print query
+			run_query (query)
+		else:
+			query = "update " + table + " set "
+			i = 0
+			for name in fieldnames:
+				query += name + "='" + row[i] + "', "
+				i += 1
+			query = query[:-2] + " where agency_id='" + row[0] + "'"
+			print query
+			run_query(query)
 
 def run_query (query):
 	db = MySQLdb.connect(DB_HOST, DB_USER, DB_PASS, "cs461-team35")
