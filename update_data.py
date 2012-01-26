@@ -19,6 +19,7 @@ data_path = ""
 
 entries = {}
 
+# Read an XML config file to get login information
 def read_config ():
 	#this function will modify the values of these global variables
 	global DB_HOST, DB_USER, DB_PASS, data_path, entries
@@ -50,15 +51,17 @@ def read_config ():
 	for node in config_dom.getElementsByTagName("entry"):
 		entries[node.getAttribute("dirname")] = node.getAttribute("url")
 
+# Download and Upzip public data feed into appropriate directory
 # Remove the data directory and recreate it so it can be filled with new data.
 # NOTE: This solution is not optimal because it does not preserve old data. 
-#  Old data can be saved later if needed.
+# Old data can be saved later if needed.
 def download_data ():
+	#create new directory
 	if os.path.exists(data_path):
 		os.system("rm -rf " + data_path)
-	#print "%s%s%s %s" % (DB_HOST, DB_USER, DB_PASS, data_path)
 	os.system("mkdir " + data_path)
 
+	#download public data feed and unzip
 	for path, url in entries.items():
 		dest = data_path + "/" + path
 		os.system("mkdir " + dest)
@@ -66,28 +69,43 @@ def download_data ():
 		os.system("unzip -d " + dest + " " + dest + "/*.zip")
 		os.system("rm -f " + dest + "/*.zip")
 
+# ...
 def update_data ():
 	for dirname in entries.keys():
 		path = data_path + "/" + dirname
 		for file in os.listdir(path):
 			update_data_file(path, file)
 
+# ...
+# path: path only
+# file: filename
 def update_data_file (path, file):
 	csv_reader = csv.reader(open(path + "/" + file, 'rb'))
 	row_count = 0
         fieldnames = []
+
+	#tablename = filename - last 4 chars (.txt)
 	table = file[:-4]
+
 	for row in csv_reader:
+		#1st row is fieldnames
 		if row_count == 0:
 			fieldnames = row
+		#data
 		else:
 			update_row (table, fieldnames, row)
 		row_count += 1
 
+# Insert/Update a row of data
+# table: tablename
+# fieldnames: an array of fieldnames
+# row: a row of data, fields are seperated by ;
 def update_row (table, fieldnames, row):
 	if table == "agency":
 		cursor = run_query ("select * from agency where agency_id='" + row[0] + "'")
 		data = cursor.fetchone()
+
+		#data is not existed in DB ==> INSERT
 		if data is None:
 			query = "insert into " + table + " ("
 			for name in fieldnames:
@@ -96,8 +114,11 @@ def update_row (table, fieldnames, row):
 			for value in row:
 				query += "'" + value + "', "
 			query = query[:-2] + ")"
+
 			print query
+
 			run_query (query)
+		#data is existed in DB ==> UPDATE
 		else:
 			query = "update " + table + " set "
 			i = 0
@@ -105,20 +126,29 @@ def update_row (table, fieldnames, row):
 				query += name + "='" + row[i] + "', "
 				i += 1
 			query = query[:-2] + " where agency_id='" + row[0] + "'"
+
 			print query
+
 			run_query(query)
 
+# Execute a query
 def run_query (query):
 	db = MySQLdb.connect(DB_HOST, DB_USER, DB_PASS, "cs461-team35")
+
 	cursor = db.cursor()
 	cursor.execute(query)
+
 	db.close()
+
 	return cursor
 
 if read_config() == 1:
 	print "ERROR: could not read config file."
+
 download_data()
+
 update_data()
+
 #update_entry("curry", "something")
 #print "%s%s%s %s" % (DB_HOST, DB_USER, DB_PASS, data_path)
 #pprint.pprint(entries)
