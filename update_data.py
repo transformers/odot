@@ -61,7 +61,7 @@ def download_data ():
 		os.system("rm -rf " + data_path)
 	os.system("mkdir " + data_path)
 
-	#download public data feed and unzip
+	#download public data feed, unzip, and delete the (downloaded) zip file
 	for path, url in entries.items():
 		dest = data_path + "/" + path
 		os.system("mkdir " + dest)
@@ -69,20 +69,21 @@ def download_data ():
 		os.system("unzip -d " + dest + " " + dest + "/*.zip")
 		os.system("rm -f " + dest + "/*.zip")
 
-# ...
+# Update whole database
 def update_data ():
+	#get path and filename seperately
 	for dirname in entries.keys():
 		path = data_path + "/" + dirname
 		for file in os.listdir(path):
 			update_data_file(path, file)
 
-# ...
+# Update each table based on each text file
 # path: path only
 # file: filename
 def update_data_file (path, file):
 	csv_reader = csv.reader(open(path + "/" + file, 'rb'))
 	row_count = 0
-        fieldnames = []
+	fieldnames = []
 
 	#tablename = filename - last 4 chars (.txt)
 	table = file[:-4]
@@ -91,20 +92,46 @@ def update_data_file (path, file):
 		#1st row is fieldnames
 		if row_count == 0:
 			fieldnames = row
-		#data
+		#other rows are data
 		else:
-			update_row (table, fieldnames, row)
+			update_table (table, fieldnames, row)
 		row_count += 1
 
 # Insert/Update a row of data
 # table: tablename
 # fieldnames: an array of fieldnames
 # row: a row of data, fields are seperated by ;
-def update_row (table, fieldnames, row):
+def update_table (table, fieldnames, row):
+	#there is to way to compare tablename and primary key of the table automatically
+	#because pairs of tablename and its keyname are different
+	#we have to use control flow and hard code here
 	if table == "agency":
-		cursor = run_query ("select * from agency where agency_id='" + row[0] + "'")
-		data = cursor.fetchone()
+		update_row(table, "agency_id", fieldnames, row)
+	#elif table == "stops":
+	#	update_row(table, "stop_id", fieldnames, row)
+	#elif table == "routes":
+	#	update_row(table, "route_id", fieldnames, row)
+	#elif table == "trips":
+	#	update_row(table, "trip_id", fieldnames, row)
+	#temporary: stop_times, calendar, calendar_dates, fare_attributes, fare_rules, shapes, frequencies, transfers, feed_info
+	#else:
+	#	print "ERROR: Table '" + table + "' is not found."
+	
+# Insert/Update a row of data
+# table: tablename
+# key: primary key of the table
+# fieldnames: an array of fieldnames
+# row: a row of data, fields are seperated by ;
+def update_row (table, key, fieldnames, row):
+	#this query is used for table that has primary key with ONLY ONE field
+	#it needs to be customize for primary key with multi-fields
+	ssql = "select * from " + table + " where " + key + "='" + row[0] + "'"
+	cursor = run_query (ssql)
+	data = cursor.fetchone()
 
+	#temporary
+	#if (table == "agency" or table == "stops" or table == "routes" or table == "trips"):
+	if (table == "agency"):
 		#data is not existed in DB ==> INSERT
 		if data is None:
 			query = "insert into " + table + " ("
@@ -129,9 +156,13 @@ def update_row (table, fieldnames, row):
 
 			print query
 
-			run_query(query)
+			run_query (query)
+
+		#data is existed in DB but not in textfile ==> DELETE
+		#...
 
 # Execute a query
+# query: the query will be executed
 def run_query (query):
 	db = MySQLdb.connect(DB_HOST, DB_USER, DB_PASS, "cs461-team35")
 
@@ -149,6 +180,5 @@ download_data()
 
 update_data()
 
-#update_entry("curry", "something")
 #print "%s%s%s %s" % (DB_HOST, DB_USER, DB_PASS, data_path)
 #pprint.pprint(entries)
