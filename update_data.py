@@ -6,6 +6,7 @@
 # Description: This is the script that updates the gtfs data
 
 import os
+import sys
 import csv
 import pprint
 import MySQLdb
@@ -24,32 +25,45 @@ def read_config ():
 	#this function will modify the values of these global variables
 	global DB_HOST, DB_USER, DB_PASS, data_path, entries
 
+	fail = False
+
+	print "Reading config..."
+
 	#parse the xml file
 	config_dom = minidom.parse("gtfs_urls.xml")
 
 	#gather database data
 	for node in config_dom.getElementsByTagName("database"):
 		DB_HOST = node.getAttribute("host")
-		if len(DB_HOST) == 0:
-			return 1
 		DB_USER = node.getAttribute("user")
-		if len(DB_USER) == 0:
-			return 1
 		DB_PASS = node.getAttribute("pass")
-		if len(DB_PASS) == 0:
-			return 1
-
-		#print "%s%s%s" % (DB_HOST, DB_USER, DB_PASS)
 
 	#get data directory
 	for node in config_dom.getElementsByTagName("datapath"):
 		data_path = node.getAttribute("value")
-		if len(data_path) == 0:
-			return 1
 
 	#get url entries
 	for node in config_dom.getElementsByTagName("entry"):
 		entries[node.getAttribute("dirname")] = node.getAttribute("url")
+
+	#check for errors
+	if data_path is None or data_path == "":
+		print "ERROR: data_path not set"
+		fail = True
+	if DB_PASS is None or DB_PASS == "":
+		print "ERROR: DB_HOST not set"
+		fail = True
+	if DB_HOST is None or DB_HOST == "":
+		print "ERROR: DB_HOST not set"
+		fail = True
+	if DB_USER is None or DB_USER == "":
+		print "ERROR: DB_USER not set"
+		fail = True
+	if len(entries) == 0:
+		print "ERROR: No urls set."
+		fail = True
+
+	return fail
 
 # Download and Upzip public data feed into appropriate directory
 # Remove the data directory and recreate it so it can be filled with new data.
@@ -65,9 +79,13 @@ def download_data ():
 	for path, url in entries.items():
 		dest = data_path + "/" + path
 		os.system("mkdir " + dest)
-		os.system("wget -P " + dest + " " + url)
-		os.system("unzip -d " + dest + " " + dest + "/*.zip")
+		print "Downloading from " + url + " into " + dest + "..."
+		os.system("wget -P " + dest + " " + url + " -o /dev/null")
+		os.system("unzip -d " + dest + " " + dest + "/*.zip > /dev/null 2>&1")
 		os.system("rm -f " + dest + "/*.zip")
+		if not os.path.exists(dest + "/agency.txt"):
+			os.system("rm -rf " + dest);
+			print "ERROR: Unable to download from " + url
 
 # Update whole database
 def update_data ():
@@ -106,16 +124,16 @@ def update_table (table, fieldnames, row):
 	#because pairs of tablename and its keyname are different
 	#we have to use control flow and hard code here
 	if table == "agency":
-		update_row(table, "agency_id", fieldnames, row)
-	#elif table == "stops":
-	#	update_row(table, "stop_id", fieldnames, row)
-	#elif table == "routes":
-	#	update_row(table, "route_id", fieldnames, row)
-	#elif table == "trips":
-	#	update_row(table, "trip_id", fieldnames, row)
+		update_row(table, ["agency_id"], fieldnames, row)
+	elif table == "stops":
+		update_row(table, ["stop_id"], fieldnames, row)
+	elif table == "routes":
+		update_row(table, ["route_id"], fieldnames, row)
+	elif table == "trips":
+		update_row(table, ["trip_id"], fieldnames, row)
 	#temporary: stop_times, calendar, calendar_dates, fare_attributes, fare_rules, shapes, frequencies, transfers, feed_info
 	#else:
-	#	print "ERROR: Table '" + table + "' is not found."
+		#print "ERROR: Table '" + table + "' is not found."
 	
 # Insert/Update a row of data
 # table: tablename
@@ -123,43 +141,59 @@ def update_table (table, fieldnames, row):
 # fieldnames: an array of fieldnames
 # row: a row of data, fields are seperated by ;
 def update_row (table, key, fieldnames, row):
+	run_query("delete from agency")
+	run_query("delete from stops")
+	run_query("delete from routes")
+	run_query("delete from trips")
+
 	#this query is used for table that has primary key with ONLY ONE field
 	#it needs to be customize for primary key with multi-fields
-	ssql = "select * from " + table + " where " + key + "='" + row[0] + "'"
-	cursor = run_query (ssql)
+
+	# http://www.velocityreviews.com/forums/t358221-db-api-how-can-i-find-the-column-names-in-a-cursor.html
+	rowd = dict(zip([d[0] for d in curs.description], row))
+
+	ssql = "select * from " + table + " where "
+	for id in key:
+		ssql += id + "='" + rowd[id] + "' and "
+	ssql = ssql[:-5]
+
+	print ssql
+
+	#cursor = run_query (ssql)
 	data = cursor.fetchone()
 
-	#temporary
-	#if (table == "agency" or table == "stops" or table == "routes" or table == "trips"):
-	if (table == "agency"):
-		#data is not existed in DB ==> INSERT
-		if data is None:
-			query = "insert into " + table + " ("
-			for name in fieldnames:
-				query += name + ", "
-			query = query[:-2] + ") values ("
-			for value in row:
-				query += "'" + value + "', "
-			query = query[:-2] + ")"
+	#data is not existed in DB ==> INSERT
+	if data is None:
+		query = "insert into " + table + " ("
+		for name in fieldnames:
+			query += name + ", "
+		query = query[:-2] + ") values ("
+		for value in row:
+			query += "'" + value + "', "
+		query = query[:-2] + ")"
 
-			print query
+		#print query
 
-			run_query (query)
-		#data is existed in DB ==> UPDATE
-		else:
-			query = "update " + table + " set "
-			i = 0
-			for name in fieldnames:
-				query += name + "='" + row[i] + "', "
-				i += 1
-			query = query[:-2] + " where agency_id='" + row[0] + "'"
+		run_query (query)
 
-			print query
+	#data is existed in DB ==> UPDATE
+	else:
+		query = "update " + table + " set "
+		i = 0
+		for name in fieldnames:
+			query += name + "='" + row[i] + "', "
+			i += 1
+		query = query[:-2] + " where "
+		for id in key:
+			query += id + "='" + rowd[id] + "' and "
+		query = query[:-5]
 
-			run_query (query)
+		#print query
 
-		#data is existed in DB but not in textfile ==> DELETE
-		#...
+		run_query (query)
+
+	#data is existed in DB but not in textfile ==> DELETE
+	#...
 
 # Execute a query
 # query: the query will be executed
@@ -173,12 +207,22 @@ def run_query (query):
 
 	return cursor
 
-if read_config() == 1:
-	print "ERROR: could not read config file."
+print "**************************************"
+print "ODOT Transit Network and Reporting App"
+print "Database Update Script"
+print "Copyright(c) 2012"
+print "**************************************"
 
+print ""
+if read_config():
+	print "FATAL: Error reading config. Quitting..."
+	sys.exit()
+
+print ""
 download_data()
 
-update_data()
+print ""
+#update_data()
 
-#print "%s%s%s %s" % (DB_HOST, DB_USER, DB_PASS, data_path)
-#pprint.pprint(entries)
+print ""
+print "Complete."
