@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+	File: gtfs_urls.xml
+	Author: Ben Zoon
+	Data: December 20, 2011
+
+	Description: This is the configuration script for the update script
+	update_data.py. The purpose of this file is to list all the URLs that
+	the script will download, check against the current data, and update.
+
+	Also, there are a few setup variables defined here.
+-->
+<gtfs>
+	<database name="osu" host="mysql.eecs.oregonstate.edu" user="cs461-team35" pass="HshVpt8rfvMVrPAQ" />
+
+	<datapath value="./feeds" />
+
+	<!--Portland has huge data, it takes time to download-->
+	<!--<entry dirname="portland" url="http://developer.trimet.org/schedule/gtfs.zip" />-->
+	<!--<entry dirname="salem" url="http://www.cherriots.org/developer/gtfs.zip" />-->
+	<!--<entry dirname="corvallis" url="ftp://ftp.ci.corvallis.or.us/pw/Transportation/GoogleTransitFeed/Google_Transit.zip" />-->
+	<entry dirname="curry" url="http://www.gtfs-data-exchange.com/agency/curry-public-transit/latest.zip" />
+	<!--<entry dirname="lincoln" url="http://oregon-gtfs.com/gtfs_data/lincolncounty-or-us/google_transit.zip" />
+	<entry dirname="yamhill" url="http://oregon-gtfs.com/gtfs_data/yamhill-or-us/google_transit.zip" />
+	<entry dirname="wilsonville" url="http://trilliumtransit.com/transit_feeds/wilsonville-or-us/google_transit.zip" />
+	<entry dirname="hoodriver" url="http://trilliumtransit.com/transit_feeds/hoodriver-or-us/google_transit.zip" />-->
+</gtfs>
