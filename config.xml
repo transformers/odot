@@ -11,7 +11,7 @@
 	Also, there are a few setup variables defined here.
 -->
 <gtfs>
-	<database name="osu" host="mysql.eecs.oregonstate.edu" user="cs461-team35" pass="HshVpt8rfvMVrPAQ" />
+	<database host="mysql.eecs.oregonstate.edu" user="cs461-team35" pass="HshVpt8rfvMVrPAQ" dbname="cs461-team35" />
 
 	<datapath value="./feeds" />
 

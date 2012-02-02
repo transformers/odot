@@ -16,6 +16,7 @@ from xml.dom import minidom
 DB_HOST = ""
 DB_USER = ""
 DB_PASS = ""
+DB_NAME = ""
 
 data_path = ""
 
@@ -24,7 +25,7 @@ entries = {}
 # Read an XML config file to get login information
 def read_config ():
 	#this function will modify the values of these global variables
-	global DB_HOST, DB_USER, DB_PASS, data_path, entries
+	global DB_HOST, DB_USER, DB_PASS, DB_NAME, data_path, entries
 
 	fail = False
 
@@ -36,6 +37,7 @@ def read_config ():
 		DB_HOST = node.getAttribute("host")
 		DB_USER = node.getAttribute("user")
 		DB_PASS = node.getAttribute("pass")
+		DB_NAME = node.getAttribute("dbname")
 
 	#get data directory
 	for node in config_dom.getElementsByTagName("datapath"):
@@ -49,14 +51,17 @@ def read_config ():
 	if data_path is None or data_path == "":
 		print "ERROR: data_path not set"
 		fail = True
-	if DB_PASS is None or DB_PASS == "":
-		print "ERROR: DB_HOST not set"
-		fail = True
 	if DB_HOST is None or DB_HOST == "":
 		print "ERROR: DB_HOST not set"
 		fail = True
 	if DB_USER is None or DB_USER == "":
 		print "ERROR: DB_USER not set"
+		fail = True
+	if DB_PASS is None or DB_PASS == "":
+		print "ERROR: DB_HOST not set"
+		fail = True
+	if DB_NAME is None or DB_NAME == "":
+		print "ERROR: DB_NAME not set"
 		fail = True
 	if len(entries) == 0:
 		print "ERROR: No urls set."
@@ -78,7 +83,7 @@ def download_data ():
 	for path, url in entries.items():
 		dest = data_path + "/" + path
 		os.system("mkdir " + dest)
-		print "Downloading from " + url + " into " + dest + "..."
+		print "Downloading from " + url + " into " + dest + "/"
 		os.system("wget -P " + dest + " " + url + " -o /dev/null")
 		os.system("unzip -d " + dest + " " + dest + "/*.zip > /dev/null 2>&1")
 		os.system("rm -f " + dest + "/*.zip")
@@ -130,7 +135,7 @@ def update_data_file (path, file):
 		else:
 			insert_row (table, fieldnames, row)
 		row_count += 1
-	
+
 # Insert/Update a row of data
 # table: tablename
 # key: primary key of the table
@@ -154,7 +159,7 @@ def insert_row (table, fieldnames, row):
 # query: the query will be executed
 def run_query (query):
 	try:
-		db = MySQLdb.connect(DB_HOST, DB_USER, DB_PASS, "cs461-team35")
+		db = MySQLdb.connect(DB_HOST, DB_USER, DB_PASS, DB_NAME)
 	except MySQLdb.Error:
 		print "ERROR: Could not connect to database."
 
@@ -183,7 +188,7 @@ print "**************************************"
 print ""
 print "Reading config..."
 if read_config():
-	print "FATAL: Error reading config. Quitting..."
+	print "FATAL: Error reading config. Exit!"
 	sys.exit()
 
 print ""
