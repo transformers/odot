@@ -15,6 +15,7 @@ from xml.dom import minidom
 DB_HOST = ""
 DB_USER = ""
 DB_PASS = ""
+DB_NAME = ""
 
 data_path = ""
 
@@ -23,7 +24,7 @@ entries = {}
 # Read an XML config file to get login information
 def read_config ():
 	#this function will modify the values of these global variables
-	global DB_HOST, DB_USER, DB_PASS, data_path, entries
+	global DB_HOST, DB_USER, DB_PASS, DB_NAME, data_path, entries
 
 	fail = False
 
@@ -37,6 +38,7 @@ def read_config ():
 		DB_HOST = node.getAttribute("host")
 		DB_USER = node.getAttribute("user")
 		DB_PASS = node.getAttribute("pass")
+		DB_NAME = node.getAttribute("dbname")
 
 	#get data directory
 	for node in config_dom.getElementsByTagName("datapath"):
@@ -50,14 +52,17 @@ def read_config ():
 	if data_path is None or data_path == "":
 		print "ERROR: data_path not set"
 		fail = True
-	if DB_PASS is None or DB_PASS == "":
-		print "ERROR: DB_HOST not set"
-		fail = True
 	if DB_HOST is None or DB_HOST == "":
 		print "ERROR: DB_HOST not set"
 		fail = True
 	if DB_USER is None or DB_USER == "":
 		print "ERROR: DB_USER not set"
+		fail = True
+	if DB_PASS is None or DB_PASS == "":
+		print "ERROR: DB_HOST not set"
+		fail = True
+	if DB_NAME is None or DB_NAME == "":
+		print "ERROR: DB_NAME not set"
 		fail = True
 	if len(entries) == 0:
 		print "ERROR: No urls set."
@@ -79,7 +84,7 @@ def download_data ():
 	for path, url in entries.items():
 		dest = data_path + "/" + path
 		os.system("mkdir " + dest)
-		print "Downloading from " + url + " into " + dest + "..."
+		print "Downloading from " + url + " into " + dest + "/"
 		os.system("wget -P " + dest + " " + url + " -o /dev/null")
 		os.system("unzip -d " + dest + " " + dest + "/*.zip > /dev/null 2>&1")
 		os.system("rm -f " + dest + "/*.zip")
@@ -134,17 +139,15 @@ def update_table (table, fieldnames, row):
 	#temporary: stop_times, calendar, calendar_dates, fare_attributes, fare_rules, shapes, frequencies, transfers, feed_info
 	#else:
 		#print "ERROR: Table '" + table + "' is not found."
-	
+
 # Insert/Update a row of data
 # table: tablename
 # key: primary key of the table
 # fieldnames: an array of fieldnames
 # row: a row of data, fields are seperated by ;
 def update_row (table, key, fieldnames, row):
-	run_query("delete from agency")
-	run_query("delete from stops")
-	run_query("delete from routes")
-	run_query("delete from trips")
+	#temporary, will be removed
+	run_query("delete from " + table)
 
 	#this query is used for table that has primary key with ONLY ONE field
 	#it needs to be customize for primary key with multi-fields
@@ -198,7 +201,7 @@ def update_row (table, key, fieldnames, row):
 # Execute a query
 # query: the query will be executed
 def run_query (query):
-	db = MySQLdb.connect(DB_HOST, DB_USER, DB_PASS, "cs461-team35")
+	db = MySQLdb.connect(DB_HOST, DB_USER, DB_PASS, DB_NAME)
 
 	cursor = db.cursor()
 	cursor.execute(query)
@@ -215,7 +218,7 @@ print "**************************************"
 
 print ""
 if read_config():
-	print "FATAL: Error reading config. Quitting..."
+	print "FATAL: Error reading config. Exit!"
 	sys.exit()
 
 print ""
