@@ -18,10 +18,10 @@
 	<!--Portland has huge data, it takes time to download-->
 	<!--<entry dirname="portland" url="http://developer.trimet.org/schedule/gtfs.zip" />-->
 	<!--<entry dirname="salem" url="http://www.cherriots.org/developer/gtfs.zip" />-->
-	<!--<entry dirname="corvallis" url="ftp://ftp.ci.corvallis.or.us/pw/Transportation/GoogleTransitFeed/Google_Transit.zip" />-->
+<!--	<entry dirname="corvallis" url="ftp://ftp.ci.corvallis.or.us/pw/Transportation/GoogleTransitFeed/Google_Transit.zip" />-->
 	<entry dirname="curry" url="http://www.gtfs-data-exchange.com/agency/curry-public-transit/latest.zip" />
-	<!--<entry dirname="lincoln" url="http://oregon-gtfs.com/gtfs_data/lincolncounty-or-us/google_transit.zip" />
-	<entry dirname="yamhill" url="http://oregon-gtfs.com/gtfs_data/yamhill-or-us/google_transit.zip" />
-	<entry dirname="wilsonville" url="http://trilliumtransit.com/transit_feeds/wilsonville-or-us/google_transit.zip" />
+<!--	<entry dirname="lincoln" url="http://oregon-gtfs.com/gtfs_data/lincolncounty-or-us/google_transit.zip" />-->
+	<!--<entry dirname="yamhill" url="http://oregon-gtfs.com/gtfs_data/yamhill-or-us/google_transit.zip" />-->
+	<!--<entry dirname="wilsonville" url="http://trilliumtransit.com/transit_feeds/wilsonville-or-us/google_transit.zip" />
 	<entry dirname="hoodriver" url="http://trilliumtransit.com/transit_feeds/hoodriver-or-us/google_transit.zip" />-->
 </gtfs>

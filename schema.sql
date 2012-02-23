@@ -16,7 +16,7 @@ drop table feed_info;
 
 create table agency (
 	id int(11) not null primary key auto_increment,
-	agency_id varchar(100) not null unique key,
+	agency_id varchar(100),
 	agency_name varchar(255) not null,
 	agency_url varchar(1023) not null,
 	agency_timezone varchar(255) not null,
@@ -27,7 +27,7 @@ create table agency (
 
 create table stops (
 	id int(11) not null primary key auto_increment,
-	stop_id varchar(100) not null unique key,
+	stop_id varchar(100) not null,
 	stop_code varchar(255),
 	stop_name varchar(255) not null,
 	stop_desc varchar(1023),
@@ -41,7 +41,7 @@ create table stops (
 
 create table routes (
         id int(11) not null primary key auto_increment,
-	route_id varchar(100) not null unique key,
+	route_id varchar(100) not null,
 	agency_id varchar(100),
 	route_short_name varchar(200) not null,
 	route_long_name varchar(255) not null,
@@ -56,7 +56,7 @@ create table trips (
 	id int(11) not null primary key auto_increment,
 	route_id varchar(100) not null,
 	service_id varchar(100) not null,
-	trip_id varchar(100) not null unique key,
+	trip_id varchar(100) not null,
 	trip_headsign varchar(255),
 	trip_short_name varchar(255),
 	direction_id varchar(5),
@@ -100,7 +100,7 @@ create table calendar_dates (
 
 create table fare_attributes (
 	id int(11) not null primary key auto_increment,
-	fare_id varchar(100) not null unique key,
+	fare_id varchar(100) not null,
 	price varchar(50) not null,
 	currency_type varchar(50) not null,
 	payment_method varchar(5) not null,
@@ -119,7 +119,7 @@ create table fare_rules (
 
 create table shapes (
 	id int(11) not null primary key auto_increment,
-	shape_id varchar(100) not null unique key,
+	shape_id varchar(100) not null,
 	shape_pt_lat varchar(50) not null,
 	shape_pt_lon varchar(50) not null,
 	shape_pt_sequence varchar(15) not null,

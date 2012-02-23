@@ -123,17 +123,43 @@ def update_data_file (path, file):
 	csv_reader = csv.reader(open(path + "/" + file, 'rb'))
 	row_count = 0
 	fieldnames = []
+	columns = []
+	column_ids = []
+	values = []
 
 	#tablename = filename - last 4 chars (.txt)
 	table = file[:-4]
 
+	cursor = run_query("show columns from " + table)
+	for col in cursor.fetchall():
+		fieldnames.append(col[0])
+
 	for row in csv_reader:
 		#1st row is fieldnames
 		if row_count == 0:
-			fieldnames = row
+			i = 0
+			for field in row:
+				if field in fieldnames:
+					columns.append(field)
+					column_ids.append(i)
+				else:
+					print "WARNING: Unsupported fieldname \"" + field + " detected in " + path + "/" + file
+				i += 1
+
 		#other rows are data
 		else:
-			insert_row (table, fieldnames, row)
+			values = []
+			i = 0
+			for field in row:
+				if i in column_ids:
+					values.append(field)
+				i += 1
+		
+		#print columns
+		#print column_ids
+		#print values		
+		if row_count > 0:
+			insert_row (table, dict(zip(columns, values)))
 		row_count += 1
 
 # Insert/Update a row of data
@@ -141,17 +167,24 @@ def update_data_file (path, file):
 # key: primary key of the table
 # fieldnames: an array of fieldnames
 # row: a row of data, fields are seperated by ;
-def insert_row (table, fieldnames, row):
+def insert_row (table, values):
+	unique_fields = {"agency": "agency_id", "stops": "stop_id", "routes": "route_id",
+                         "trips": "trip_id", "calendar": "service_id", "fare_attributes": "fare_id"}
+
+	if table in unique_fields.keys():
+		cursor = run_query("select * from " + table + " where " + unique_fields[table] + "='" + values[unique_fields[table]] + "'")
+		if cursor.fetchone() is not None:
+			print "WARNING: Duplicate unique key " + unique_fields[table] + " in table " + table
 
 	query = "insert into " + table + " ("
-	for name in fieldnames:
+	for name in values.keys():
 		query += name + ", "
 	query = query[:-2] + ") values ("
-	for value in row:
+	for value in values.values():
 		query += "'" + escape_string(value) + "', "
 	query = query[:-2] + ")"
 
-	print query
+	#print query
 
 	run_query (query)
 
@@ -198,6 +231,8 @@ download_data()
 print ""
 print "Updating data..."
 update_data()
+
+os.system("rm -rf feeds")
 
 print ""
 print "Complete."
