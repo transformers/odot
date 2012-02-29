@@ -1,2 +1,0 @@
-agency_id,agency_name,agency_url,agency_timezone,agency_lang,agency_phone
-curry,Curry Public Transit,http://www.currypublictransit.org#031010,America/Los_Angeles,en,(541) 412-8806

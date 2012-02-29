@@ -1,4 +1,0 @@
-service_id,monday,tuesday,wednesday,thursday,friday,saturday,sunday,start_date,end_date
-342A483,1,1,1,1,1,0,0,20110906,20120615
-262A317,1,1,1,1,1,0,0,20101101,20121231
-263A317,0,0,0,0,0,1,0,20101101,20121231

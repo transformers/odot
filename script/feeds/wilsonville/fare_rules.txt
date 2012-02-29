@@ -1,6 +1,0 @@
-fare_id,route_id,origin_id,destination_id,contains_id
-274,,,,206
-274,,,,205
-274,,,,204
-267,,,,205
-268,,,,206

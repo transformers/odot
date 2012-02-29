@@ -1,2 +1,0 @@
-agency_id,agency_name,agency_url,agency_timezone,agency_phone,agency_fare_url,agency_lang
-37,"Columbia Area Transit","http://community.gorge.net/hrctd/","America/Los_Angeles","(541) 386-4202","http://community.gorge.net/hrctd/Fares.htm","en"

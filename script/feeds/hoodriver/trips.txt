@@ -1,6 +1,0 @@
-route_id,service_id,trip_id,trip_short_name,trip_headsign,direction_id,block_id,shape_id,trip_bikes_allowed
-237,147A599,3381A147B599,,"(Loop)",,,0,0
-237,147A599,3382A147B599,,"(Loop)",,,1,0
-237,147A599,3383A147B599,,"(Loop)",,,2,0
-238,148A599,3387A148B599,,"Eastbound: Hood River / The Dalles",,,3,0
-238,148A599,3386A148B599,,"Westbound: Portland / Clackamas",,,4,0

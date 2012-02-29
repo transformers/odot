@@ -1,3 +1,0 @@
-service_id,service_name,monday,tuesday,wednesday,thursday,friday,saturday,sunday,start_date,end_date
-329A586,"Monday through Saturday",1,1,1,1,1,1,0,20110320,20130101
-335A586,"Monday through Sunday",1,1,1,1,1,1,1,20110320,20130101

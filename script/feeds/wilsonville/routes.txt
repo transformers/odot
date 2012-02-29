@@ -1,8 +1,0 @@
-agency_id,route_id,route_short_name,route_long_name,route_desc,route_type,route_url,route_color,route_text_color
-101,454,"1x","Salem","",3,http://www.ridesmart.com/Index.aspx?page=123,fb8037,ffffff
-101,455,"2x","Barbur","",3,http://www.ridesmart.com/Index.aspx?page=118,8e000a,ffffff
-101,456,"3","Charbanneau/Canby","",3,http://www.ridesmart.com/Index.aspx?page=117,602178,ffffff
-101,457,"4","Wilsonville Rd","",3,http://www.ridesmart.com/Index.aspx?page=104,39943d,ffffff
-101,458,"5","95th Ave","",3,http://www.ridesmart.com/Index.aspx?page=110,002655,ffffff
-101,459,"6","Canyon Creek","",3,http://www.ridesmart.com/Index.aspx?page=108,0091db,ffffff
-101,460,"V","Wilsonville Station/Villebois Loop","",3,http://www.ridesmart.com/Index.aspx?page=107,ffd814,000000

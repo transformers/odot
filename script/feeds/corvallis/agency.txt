@@ -1,3 +1,0 @@
-"agency_id","agency_name","agency_url","agency_timezone","agency_lang","agency_phone"
-"ATS","City of Albany / Linn Benton Loop","http://www.cityofalbany.net/publicworks/transit/","America/Los_Angeles","EN","(541) 917-7667"
-"CTS","Corvallis Transit System","http://www.CorvallisTransit.com","America/Los_Angeles","EN","(541) 766-6998"
