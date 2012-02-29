@@ -47,6 +47,8 @@ def read_config ():
 	for node in config_dom.getElementsByTagName("entry"):
 		entries[node.getAttribute("dirname")] = node.getAttribute("url")
 
+	print DB_HOST, DB_USER, DB_PASS, DB_NAME
+
 	#check for errors
 	if data_path is None or data_path == "":
 		print "ERROR: data_path not set"
@@ -58,7 +60,7 @@ def read_config ():
 		print "ERROR: DB_USER not set"
 		fail = True
 	if DB_PASS is None or DB_PASS == "":
-		print "ERROR: DB_HOST not set"
+		print "ERROR: DB_PASS not set"
 		fail = True
 	if DB_NAME is None or DB_NAME == "":
 		print "ERROR: DB_NAME not set"

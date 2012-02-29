@@ -1,17 +1,17 @@
 /* */
-drop table agency;
-drop table stops;
-drop table routes;
-drop table trips;
-drop table stop_times;
-drop table calendar;
-drop table calendar_dates;
-drop table fare_attributes;
-drop table fare_rules;
-drop table shapes;
-drop table frequencies;
-drop table transfers;
-drop table feed_info;
+drop table if exists agency;
+drop table if exists stops;
+drop table if exists routes;
+drop table if exists trips;
+drop table if exists stop_times;
+drop table if exists calendar;
+drop table if exists calendar_dates;
+drop table if exists fare_attributes;
+drop table if exists fare_rules;
+drop table if exists shapes;
+drop table if exists frequencies;
+drop table if exists transfers;
+drop table if exists feed_info;
 
 
 create table agency (
