@@ -1,0 +1,6 @@
+"service_id","monday","tuesday","wednesday","thursday","friday","saturday","sunday","start_date","end_date"
+"MonTueWedThuFri",1,1,1,1,1,0,0,"20111024","20131024"
+"MonTueWedThuFri_509J",1,1,1,1,1,0,0,"20111024","20131024"
+"Sat",0,0,0,0,0,1,0,"20111024","20131024"
+"Sun",0,0,0,0,0,0,1,"20111024","20131024"
+"ThuFriSat_OSU",0,0,0,1,1,1,0,"20111024","20131024"

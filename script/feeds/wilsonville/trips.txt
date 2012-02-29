@@ -1,0 +1,185 @@
+route_id,service_id,trip_id,trip_short_name,trip_headsign,direction_id,block_id,shape_id,trip_bikes_allowed
+457,295A360,17953A295B360,,"Boulder Creek via Town Center",,258,0,0
+457,295A360,17954A295B360,,"Boulder Creek via Town Center",,258,1,0
+457,295A360,17952A295B360,,"Boones Ferry School via Town Center",,258,2,0
+454,294A360,14390A294B360,,"Wilsonville Station",,263,3,0
+454,294A360,14391A294B360,,"Wilsonville Station",,246,3,0
+454,294A360,14392A294B360,,"Wilsonville Station",,263,3,0
+454,294A360,14394A294B360,,"Wilsonville Station",,265,4,0
+454,294A360,14395A294B360,,"Wilsonville Station",,248,4,0
+454,294A360,14397A294B360,,"Wilsonville Station",,265,4,0
+454,294A360,14398A294B360,,"Wilsonville Station",,248,4,0
+454,294A360,14399A294B360,WIlsonville Station,"Salem Transit Center",,263,5,0
+454,294A360,14404A294B360,WIlsonville Station,"Salem Transit Center",,265,6,0
+454,294A360,14405A294B360,WIlsonville Station,"Salem Transit Center",,248,6,0
+454,294A360,14407A294B360,WIlsonville Station,"Salem Transit Center",,265,6,0
+454,294A360,14408A294B360,WIlsonville Station,"Salem Transit Center",,248,6,0
+455,294A360,14410A294B360,,"Barbur Transit Center via Tualatin ",,250,7,0
+455,294A360,14411A294B360,,"Barbur Transit Center via Tualatin ",,260,7,0
+455,294A360,14412A294B360,,"Barbur Transit Center via Tualatin ",,252,7,0
+455,294A360,14418A294B360,,"Barbur Transit Center via Tualatin ",,246,8,0
+455,294A360,14419A294B360,,"Barbur Transit Center via Tualatin ",,260,8,0
+455,294A360,14420A294B360,,"Barbur Transit Center via Tualatin ",,263,8,0
+455,294A360,14425A294B360,,"Barbur Transit Center via Tualatin ",,261,8,0
+455,294A360,14426A294B360,,"Barbur Transit Center via Tualatin ",,262,9,0
+455,294A360,14434A294B360,,"Barbur Transit Center via Tualatin ",,253,10,0
+455,294A360,14435A294B360,,"Wilsonville Station",,260,11,0
+455,294A360,14436A294B360,,"Wilsonville Station",,252,11,0
+455,294A360,14437A294B360,,"Wilsonville Station",,251,11,0
+455,294A360,14438A294B360,,"Wilsonville Station",,250,12,0
+455,294A360,14439A294B360,,"Wilsonville Station",,260,12,0
+455,294A360,14445A294B360,,"Wilsonville Station",,251,13,0
+455,294A360,14446A294B360,,"Wilsonville Station",,246,13,0
+455,294A360,14447A294B360,,"Wilsonville Station",,260,13,0
+455,294A360,14448A294B360,,"Wilsonville Station",,263,13,0
+455,294A360,14449A294B360,,"Wilsonville Station",,252,13,0
+455,294A360,14450A294B360,,"Wilsonville Station",,260,13,0
+455,294A360,14451A294B360,,"Wilsonville Station",,263,13,0
+455,294A360,14452A294B360,,"Wilsonville Station",,254,14,0
+455,294A360,14459A294B360,,"Wilsonville Station",,249,15,0
+455,294A360,14460A294B360,,"Wilsonville Station",,253,15,0
+455,294A360,14461A294B360,,"Wilsonville Station",,254,15,0
+455,294A360,14462A294B360,,"Wilsonville Station",,253,16,0
+455,295A360,14463A295B360,,"Tualatin Park and Ride",,257,17,0
+455,295A360,14467A295B360,,"Tualatin Park and Ride",,257,17,0
+455,295A360,14471A295B360,,"Wilsonville Station",,257,18,0
+455,295A360,14476A295B360,,"Wilsonville Station",,257,18,0
+456,294A360,14480A294B360,,"Canby Transit Center",,262,19,0
+456,294A360,14487A294B360,,"Canby Transit Center",,264,19,0
+457,294A360,15821A294B360,,"Boulder Creek via Wilsonville Station",,259,20,0
+457,294A360,15820A294B360,,"Boulder Creek via Wilsonville Station",,259,21,0
+456,294A360,14491A294B360,,"Wilsonville Station",,262,22,0
+457,294A360,15819A294B360,,"Boulder Creek via Wilsonville Station",,261,23,0
+457,294A360,15818A294B360,,"Boulder Creek via Wilsonville Station",,257,24,0
+457,294A360,15817A294B360,,"Boulder Creek via Wilsonville Station",,255,20,0
+456,294A360,14499A294B360,,"Wilsonville Station",,264,22,0
+457,294A360,15815A294B360,,"Boulder Creek via Wilsonville Station",,255,24,0
+457,294A360,15816A294B360,,"Boulder Creek via Wilsonville Station",,244,20,0
+457,294A360,14503A294B360,,"Boulder Creek via Wilsonville Station",,255,25,0
+457,294A360,14504A294B360,,"Boulder Creek via Wilsonville Station",,244,20,0
+457,294A360,14505A294B360,,"Boulder Creek via Wilsonville Station",,244,20,0
+457,294A360,14506A294B360,,"Boulder Creek via Wilsonville Station",,261,20,0
+457,294A360,14507A294B360,,"Boulder Creek via Wilsonville Station",,244,20,0
+457,294A360,15823A294B360,,"Boulder Creek via Wilsonville Station",,259,24,0
+457,295A360,17956A295B360,,"Boulder Creek via Town Center",,258,1,0
+457,295A360,17958A295B360,,"Boulder Creek via Town Center",,258,1,0
+457,294A360,14512A294B360,,"Boulder Creek via Wilsonville Station",,261,24,0
+457,294A360,14514A294B360,,"Boulder Creek via Wilsonville Station",,250,24,0
+457,294A360,14515A294B360,,"Boulder Creek via Wilsonville Station",,259,24,0
+457,294A360,15825A294B360,,"Boulder Creek via Wilsonville Station",,258,20,0
+457,295A360,15844A295B360,,"Boones Ferry School via Town Center",,258,2,0
+457,294A360,15824A294B360,,"Boulder Creek via Wilsonville Station",,257,20,0
+457,294A360,14519A294B360,,"Boulder Creek via Wilsonville Station",,244,23,0
+457,294A360,14521A294B360,,"Boulder Creek via Wilsonville Station",,257,26,0
+457,294A360,14522A294B360,,"Boulder Creek via Wilsonville Station",,255,21,0
+457,294A360,14523A294B360,,"Boulder Creek via Wilsonville Station",,255,21,0
+457,294A360,15822A294B360,,"Boulder Creek via Wilsonville Station",,258,24,0
+457,295A360,15826A295B360,,"Boulder Creek via Town Center",,258,1,0
+457,294A360,14526A294B360,,"Boulder Creek via Wilsonville Station",,258,20,0
+457,294A360,14527A294B360,,"Boulder Creek via Wilsonville Station",,257,21,0
+457,294A360,14528A294B360,,"Autumn Park via Wilsonville Station",,244,27,0
+457,294A360,14529A294B360,,"Autumn Park via Wilsonville Station",,261,27,0
+457,294A360,14530A294B360,,"Autumn Park via Wilsonville Station",,244,27,0
+457,294A360,15838A294B360,,"Autumn Park via Wilsonville Station",,244,28,0
+457,294A360,14532A294B360,,"Autumn Park via Wilsonville Station",,250,27,0
+457,294A360,14533A294B360,,"Autumn Park via Wilsonville Station",,259,27,0
+457,294A360,14536A294B360,,"Autumn Park via Wilsonville Station",,255,28,0
+457,294A360,14537A294B360,,"Autumn Park via Wilsonville Station",,244,28,0
+457,294A360,14538A294B360,,"Autumn Park via Wilsonville Station",,255,28,0
+457,294A360,15840A294B360,,"Autumn Park via Wilsonville Station",,259,27,0
+457,294A360,14541A294B360,,"Autumn Park via Wilsonville Station",,259,28,0
+457,294A360,14542A294B360,,"Autumn Park via Wilsonville Station",,258,28,0
+457,294A360,14544A294B360,,"Autumn Park via Wilsonville Station",,244,29,0
+457,294A360,14545A294B360,,"Autumn Park via Wilsonville Station",,244,29,0
+457,294A360,14546A294B360,,"Autumn Park via Wilsonville Station",,258,29,0
+457,294A360,14547A294B360,,"Autumn Park via Wilsonville Station",,258,28,0
+457,294A360,14548A294B360,,"Autumn Park via Wilsonville Station",,261,30,0
+457,294A360,15839A294B360,,"Autumn Park via Wilsonville Station",,255,28,0
+457,294A360,14550A294B360,,"Autumn Park via Wilsonville Station",,256,30,0
+457,294A360,14551A294B360,,"Autumn Park via Wilsonville Station",,257,30,0
+457,295A360,17962A295B360,,"Boones Ferry School via Town Center",,258,2,0
+457,295A360,14553A295B360,,"Boulder Creek via Town Center",,258,1,0
+457,294A360,15834A294B360,,"Autumn Park via Wilsonville Station",,257,28,0
+457,295A360,17959A295B360,,"Boulder Creek via Town Center",,258,1,0
+457,295A360,14561A295B360,,"Boulder Creek via Town Center",,258,31,0
+457,295A360,14562A295B360,,"Boones Ferry School via Town Center",,258,2,0
+458,294A360,14570A294B360,,"Commerce Circle",,251,32,0
+458,294A360,15930A294B360,,"Commerce Circle",,265,32,0
+458,294A360,15931A294B360,,"Commerce Circle",,265,32,0
+458,294A360,15932A294B360,,"Commerce Circle",,265,32,0
+458,294A360,15933A294B360,,"Commerce Circle",,265,32,0
+458,294A360,15934A294B360,,"Commerce Circle",,265,32,0
+458,294A360,15935A294B360,,"Commerce Circle",,265,32,0
+458,294A360,15936A294B360,,"Commerce Circle",,246,32,0
+458,294A360,15937A294B360,,"Commerce Circle",,265,32,0
+458,294A360,15938A294B360,,"Commerce Circle",,246,32,0
+458,294A360,15939A294B360,,"Commerce Circle",,246,32,0
+458,294A360,15940A294B360,,"Commerce Circle",,246,32,0
+458,294A360,15941A294B360,,"Commerce Circle",,246,32,0
+458,294A360,15942A294B360,,"Commerce Circle",,246,32,0
+458,294A360,15944A294B360,,"Commerce Circle",,246,32,0
+459,294A360,15945A294B360,,"Wilsonville Station",,264,33,0
+458,294A360,14587A294B360,,"Wilsonville Station",,265,34,0
+458,294A360,15916A294B360,,"Wilsonville Station",,265,34,0
+458,294A360,15917A294B360,,"Wilsonville Station",,246,34,0
+458,294A360,15918A294B360,,"Wilsonville Station",,265,34,0
+458,294A360,15919A294B360,,"Wilsonville Station",,265,34,0
+458,294A360,15920A294B360,,"Wilsonville Station",,265,34,0
+458,294A360,15921A294B360,,"Wilsonville Station",,265,34,0
+458,294A360,15922A294B360,,"Wilsonville Station",,246,34,0
+458,294A360,15923A294B360,,"Wilsonville Station",,246,34,0
+458,294A360,15925A294B360,,"Wilsonville Station",,246,34,0
+458,294A360,15927A294B360,,"Wilsonville Station",,246,34,0
+458,294A360,15929A294B360,,"Commerce Circle",,265,32,0
+459,294A360,14602A294B360,,"Argyle Square",,264,35,0
+459,294A360,15961A294B360,,"Argyle Square",,264,35,0
+459,294A360,15968A294B360,,"Argyle Square",,256,36,0
+459,294A360,15966A294B360,,"Argyle Square",,264,35,0
+459,294A360,15967A294B360,,"Argyle Square",,256,37,0
+459,294A360,14619A294B360,,"Argyle Square",,256,36,0
+459,294A360,14620A294B360,,"Wilsonville Station",,264,33,0
+459,294A360,15946A294B360,,"Wilsonville Station",,264,33,0
+459,294A360,15947A294B360,,"Wilsonville Station",,264,33,0
+459,294A360,15949A294B360,,"Wilsonville Station",,264,33,0
+459,294A360,15951A294B360,,"Wilsonville Station",,256,38,0
+459,294A360,14627A294B360,,"Wilsonville Station",,256,38,0
+459,294A360,15952A294B360,,"Wilsonville Station",,256,38,0
+459,294A360,15953A294B360,,"Wilsonville Station",,256,38,0
+459,294A360,15954A294B360,,"Wilsonville Station",,256,38,0
+459,294A360,15955A294B360,,"Wilsonville Station",,256,38,0
+459,294A360,15956A294B360,,"Wilsonville Station",,256,38,0
+459,294A360,15958A294B360,,"Wilsonville Station",,256,38,0
+460,294A360,14636A294B360,,"Wilsonville Station",,245,39,0
+460,294A360,14637A294B360,,"Villebois - Wilsonville Station",,245,40,0
+460,294A360,14638A294B360,,"Villebois - Wilsonville Station",,245,40,0
+460,294A360,14639A294B360,,"Villebois",,247,41,0
+458,294A360,15924A294B360,,"Wilsonville Station",,246,34,0
+458,294A360,15926A294B360,,"Wilsonville Station",,246,34,0
+458,294A360,15928A294B360,,"Wilsonville Station",,246,34,0
+457,295A360,17965A295B360,,"Boones Ferry School via Town Center",,258,2,0
+457,295A360,17957A295B360,,"Boulder Creek via Town Center",,258,1,0
+457,294A360,15835A294B360,,"Autumn Park via Wilsonville Station",,255,30,0
+457,294A360,15836A294B360,,"Autumn Park via Wilsonville Station",,261,27,0
+457,294A360,15841A294B360,,"Autumn Park via Wilsonville Station",,257,27,0
+457,294A360,15843A294B360,,"Autumn Park via Wilsonville Station",,258,27,0
+457,295A360,17964A295B360,,"Boones Ferry School via Town Center",,258,2,0
+457,295A360,17960A295B360,,"Boones Ferry School via Town Center",,258,2,0
+457,295A360,17963A295B360,,"Boones Ferry School via Town Center",,258,2,0
+457,294A360,17966A294B360,,"Boulder Creek via Wilsonville Station",,259,24,0
+458,294A360,15915A294B360,,"Wilsonville Station",,265,34,0
+458,294A360,15943A294B360,,"Commerce Circle",,246,32,0
+459,294A360,15948A294B360,,"Wilsonville Station",,264,33,0
+459,294A360,15950A294B360,,"Wilsonville Station",,264,33,0
+459,294A360,15957A294B360,,"Wilsonville Station",,256,38,0
+459,294A360,15960A294B360,,"Argyle Square",,264,35,0
+459,294A360,15962A294B360,,"Argyle Square",,264,35,0
+459,294A360,15963A294B360,,"Argyle Square",,264,35,0
+459,294A360,15964A294B360,,"Argyle Square",,264,35,0
+459,294A360,15965A294B360,,"Argyle Square",,264,35,0
+459,294A360,15969A294B360,,"Argyle Square",,256,36,0
+459,294A360,15970A294B360,,"Argyle Square",,256,36,0
+459,294A360,15971A294B360,,"Argyle Square",,256,36,0
+459,294A360,15972A294B360,,"Argyle Square",,256,36,0
+459,294A360,15973A294B360,,"Argyle Square",,256,36,0
+459,294A360,15974A294B360,,"Argyle Square",,256,36,0
+459,294A360,15975A294B360,,"Argyle Square",,256,36,0

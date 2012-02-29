@@ -1,0 +1,10 @@
+fare_id,price,currency_type,payment_method,transfers
+165-1,1.50,USD,0,0
+166-1,1.50,USD,0,0
+167-1,1.50,USD,0,0
+165-2,2.50,USD,0,0
+166-2,2.50,USD,0,0
+167-2,2.50,USD,0,0
+165-3,3.00,USD,0,0
+166-3,3.00,USD,0,0
+167-3,3.00,USD,0,0

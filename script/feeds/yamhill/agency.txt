@@ -1,0 +1,2 @@
+agency_id,agency_name,agency_url,agency_timezone,agency_phone,agency_fare_url,agency_lang
+93,"Yamhill County Transit Area","http://www.yctransitarea.org/","America/Los_Angeles","503-472-0457 ","http://www.yctransitarea.org/fares.html","en"

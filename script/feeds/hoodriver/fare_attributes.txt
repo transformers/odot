@@ -1,0 +1,10 @@
+agency_id,fare_id,price,currency_type,payment_method,transfers,transfer_duration
+37,115,1.25,USD,0,0,
+37,116,1.25,USD,0,0,
+37,117,3,USD,0,0,
+37,118,3,USD,0,0,
+37,119,3,USD,0,0,
+37,120,3,USD,0,0,
+37,121,3,USD,0,0,
+37,122,3,USD,0,0,
+37,123,8,USD,0,0,

@@ -1,0 +1,79 @@
+route_id,route_short_name,route_long_name,route_type,route_url,route_color,route_text_color
+165-6039,01,S. Commercial,3,http://www.cherriots.org/Downloads/rt01.pdf,0000FF,FFFFFF
+165-6040,01X,Salem Express,3,http://www.cherriots.org/Downloads/rt01X.pdf,800080,FFFFFF
+165-6041,02,D St/Brown,3,http://www.cherriots.org/Downloads/rt02.pdf,800000,FFFFFF
+165-6042,02X,Grand Ronde Express,3,http://www.cherriots.org/Downloads/rt02X.pdf,0000FF,FFFFFF
+165-6043,03,Portland Rd/CCC,3,http://www.cherriots.org/Downloads/rt03.pdf,00FF00,000000
+165-6044,04,Keizer Station Express,3,http://www.cherriots.org/Downloads/rt04.pdf,FFFF00,000000
+165-6045,05,Center St.,3,http://www.cherriots.org/Downloads/rt05.pdf,A56E3A,000000
+165-6046,06,12th/Battle Creek,3,http://www.cherriots.org/Downloads/rt06.pdf,00FF00,000000
+165-6047,07,Fairview Ind. Park,3,http://www.cherriots.org/Downloads/rt07.pdf,800080,FFFFFF
+165-6048,08,Liberty Rd. S.,3,http://www.cherriots.org/Downloads/rt08.pdf,FF00FF,000000
+165-6049,09,River Rd. N./Parkmeadow,3,http://www.cherriots.org/Downloads/rt09.pdf,000080,FFFFFF
+165-6050,10,Wallace Rd. Loop,3,http://www.cherriots.org/Downloads/rt10.pdf,00FF00,000000
+165-6051,11,Lancaster Drive,3,http://www.cherriots.org/Downloads/rt11.pdf,0000FF,FFFFFF
+165-6052,12,Edgewater Loop,3,http://www.cherriots.org/Downloads/rt12.pdf,FFFF00,000000
+165-6053,13,Silverton/Brown,3,http://www.cherriots.org/Downloads/rt13.pdf,800080,FFFFFF
+165-6054,14,Cherry Ave/KROC Center Loop,3,http://www.cherriots.org/Downloads/rt14.pdf,800080,FFFFFF
+165-6055,15,Keizer Station/CCC,3,http://www.cherriots.org/Downloads/rt15.pdf,FF00FF,000000
+165-6056,16,State St.,3,http://www.cherriots.org/Downloads/rt16.pdf,FFFF00,000000
+165-6057,17,Market St.,3,http://www.cherriots.org/Downloads/rt17.pdf,0000FF,FFFFFF
+165-6058,18,Windsor Is. Loop,3,http://www.cherriots.org/Downloads/rt18.pdf,FFFF00,000000
+165-6059,19,River Rd N/Keizer Station,3,http://www.cherriots.org/Downloads/rt19.pdf,000080,FFFFFF
+165-6060,20,17th/CCC,3,http://www.cherriots.org/Downloads/rt20.pdf,FF0000,000000
+165-6061,21,Rees Hill Loop,3,http://www.cherriots.org/Downloads/rt21.pdf,FF0000,000000
+165-6062,25,West Salem - Downtown,3,http://www.cherriots.org/Downloads/rt25.pdf,FF00FF,000000
+165-6063,91,Garten Foundation               ,3,,000000,FFFFFF
+165-6064,92,Rockwest                        ,3,,000000,FFFFFF
+166-6068,01,S. Commercial,3,http://www.cherriots.org/Downloads/rt01.pdf,0000FF,FFFFFF
+166-6069,01X,Salem Express,3,http://www.cherriots.org/Downloads/rt01X.pdf,800080,FFFFFF
+166-6070,02,D St/Brown,3,http://www.cherriots.org/Downloads/rt02.pdf,800000,FFFFFF
+166-6071,02X,Grand Ronde Express,3,http://www.cherriots.org/Downloads/rt02X.pdf,0000FF,FFFFFF
+166-6072,03,Portland Rd/CCC,3,http://www.cherriots.org/Downloads/rt03.pdf,00FF00,000000
+166-6073,04,Keizer Station Express,3,http://www.cherriots.org/Downloads/rt04.pdf,FFFF00,000000
+166-6074,05,Center St.,3,http://www.cherriots.org/Downloads/rt05.pdf,A56E3A,000000
+166-6075,06,12th/Battle Creek,3,http://www.cherriots.org/Downloads/rt06.pdf,00FF00,000000
+166-6076,07,Fairview Ind. Park,3,http://www.cherriots.org/Downloads/rt07.pdf,800080,FFFFFF
+166-6077,08,Liberty Rd. S.,3,http://www.cherriots.org/Downloads/rt08.pdf,FF00FF,000000
+166-6078,09,River Rd. N./Parkmeadow,3,http://www.cherriots.org/Downloads/rt09.pdf,000080,FFFFFF
+166-6079,10,Wallace Rd. Loop,3,http://www.cherriots.org/Downloads/rt10.pdf,00FF00,000000
+166-6080,11,Lancaster Drive,3,http://www.cherriots.org/Downloads/rt11.pdf,0000FF,FFFFFF
+166-6081,12,Edgewater Loop,3,http://www.cherriots.org/Downloads/rt12.pdf,FFFF00,000000
+166-6082,13,Silverton/Brown,3,http://www.cherriots.org/Downloads/rt13.pdf,800080,FFFFFF
+166-6083,14,Cherry Ave/KROC Center Loop,3,http://www.cherriots.org/Downloads/rt14.pdf,800080,FFFFFF
+166-6084,15,Keizer Station/CCC,3,http://www.cherriots.org/Downloads/rt15.pdf,FF00FF,000000
+166-6085,16,State St.,3,http://www.cherriots.org/Downloads/rt16.pdf,FFFF00,000000
+166-6086,17,Market St.,3,http://www.cherriots.org/Downloads/rt17.pdf,0000FF,FFFFFF
+166-6087,18,Windsor Is. Loop,3,http://www.cherriots.org/Downloads/rt18.pdf,FFFF00,000000
+166-6088,19,River Rd N/Keizer Station,3,http://www.cherriots.org/Downloads/rt19.pdf,000080,FFFFFF
+166-6089,20,17th/CCC,3,http://www.cherriots.org/Downloads/rt20.pdf,FF0000,000000
+166-6090,21,Rees Hill Loop,3,http://www.cherriots.org/Downloads/rt21.pdf,FF0000,000000
+166-6091,25,West Salem - Downtown,3,http://www.cherriots.org/Downloads/rt25.pdf,FF00FF,000000
+166-6092,91,Garten Foundation               ,3,,000000,FFFFFF
+166-6093,92,Rockwest                        ,3,,000000,FFFFFF
+167-6099,01,S. Commercial,3,http://www.cherriots.org/Downloads/rt01.pdf,0000FF,FFFFFF
+167-6100,01X,Salem Express,3,http://www.cherriots.org/Downloads/rt01X.pdf,800080,FFFFFF
+167-6101,02,D St/Brown,3,http://www.cherriots.org/Downloads/rt02.pdf,800000,FFFFFF
+167-6102,02X,Grand Ronde Express,3,http://www.cherriots.org/Downloads/rt02X.pdf,0000FF,FFFFFF
+167-6103,03,Portland Rd/CCC,3,http://www.cherriots.org/Downloads/rt03.pdf,00FF00,000000
+167-6104,04,Keizer Station Express,3,http://www.cherriots.org/Downloads/rt04.pdf,FFFF00,000000
+167-6105,05,Center St.,3,http://www.cherriots.org/Downloads/rt05.pdf,A56E3A,000000
+167-6106,06,12th/Battle Creek,3,http://www.cherriots.org/Downloads/rt06.pdf,00FF00,000000
+167-6107,07,Fairview Ind. Park,3,http://www.cherriots.org/Downloads/rt07.pdf,800080,FFFFFF
+167-6108,08,Liberty Rd. S.,3,http://www.cherriots.org/Downloads/rt08.pdf,FF00FF,000000
+167-6109,09,River Rd. N./Parkmeadow,3,http://www.cherriots.org/Downloads/rt09.pdf,000080,FFFFFF
+167-6110,10,Wallace Rd. Loop,3,http://www.cherriots.org/Downloads/rt10.pdf,00FF00,000000
+167-6111,11,Lancaster Drive,3,http://www.cherriots.org/Downloads/rt11.pdf,0000FF,FFFFFF
+167-6112,12,Edgewater Loop,3,http://www.cherriots.org/Downloads/rt12.pdf,FFFF00,000000
+167-6113,13,Silverton/Brown,3,http://www.cherriots.org/Downloads/rt13.pdf,800080,FFFFFF
+167-6114,14,Cherry Ave/KROC Center Loop,3,http://www.cherriots.org/Downloads/rt14.pdf,800080,FFFFFF
+167-6115,15,Keizer Station/CCC,3,http://www.cherriots.org/Downloads/rt15.pdf,FF00FF,000000
+167-6116,16,State St.,3,http://www.cherriots.org/Downloads/rt16.pdf,FFFF00,000000
+167-6117,17,Market St.,3,http://www.cherriots.org/Downloads/rt17.pdf,0000FF,FFFFFF
+167-6118,18,Windsor Is. Loop,3,http://www.cherriots.org/Downloads/rt18.pdf,FFFF00,000000
+167-6119,19,River Rd N/Keizer Station,3,http://www.cherriots.org/Downloads/rt19.pdf,000080,FFFFFF
+167-6120,20,17th/CCC,3,http://www.cherriots.org/Downloads/rt20.pdf,FF0000,000000
+167-6121,21,Rees Hill Loop,3,http://www.cherriots.org/Downloads/rt21.pdf,FF0000,000000
+167-6122,25,West Salem - Downtown,3,http://www.cherriots.org/Downloads/rt25.pdf,FF00FF,000000
+167-6123,91,Garten Foundation               ,3,,000000,FFFFFF
+167-6124,92,Rockwest                        ,3,,000000,FFFFFF

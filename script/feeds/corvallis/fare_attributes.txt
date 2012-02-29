@@ -1,0 +1,4 @@
+"fare_id","agency_id","price","currency_type","payment_method","transfers","transfer_duration"
+"Fare_Free","CTS",0.00,"USD",0,,
+"Fare_LBL","ATS",1.25,"USD",0,,
+"Fare_PC","CTS",0.75,"USD",0,,
