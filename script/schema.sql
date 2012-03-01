@@ -36,7 +36,8 @@ create table stops (
 	zone_id varchar(100),
 	stop_url varchar(1023),
 	location_type varchar(5),
-	parent_station varchar(100)
+	parent_station varchar(100),
+	stop_timezone varchar(50)
 );
 
 create table routes (

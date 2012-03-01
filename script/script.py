@@ -47,7 +47,7 @@ def read_config ():
 	for node in config_dom.getElementsByTagName("entry"):
 		entries[node.getAttribute("dirname")] = node.getAttribute("url")
 
-	print DB_HOST, DB_USER, DB_PASS, DB_NAME
+#	print DB_HOST, DB_USER, DB_PASS, DB_NAME
 
 	#check for errors
 	if data_path is None or data_path == "":
