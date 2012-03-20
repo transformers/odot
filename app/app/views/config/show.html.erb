@@ -1,0 +1,81 @@
+<%
+   require "nokogiri"
+%>
+
+<h3>Update Script</h3>
+
+<table>
+  <tr><th colspan="4">Database Info</th></tr>
+  <tr>
+
+<% if @edit == "1" %>
+    <form name="editdb" action="config?save=1" method="post">
+    <td><b>Host: </b><input type="text" name="host" size="10" value="<%=  @dbinfo["host"] %>"></td>
+    <td><b>User: </b><input type="text" name="user" size="10" value="<%=  @dbinfo["user"] %>"></td>
+    <td><b>Pass: </b><input type="text" name="pass" size="10" value="<%=  @dbinfo["pass"] %>"></td>
+    <td><b>Database: </b><input type="text" name="dbname" size="10" value="<%=  @dbinfo["dbname"] %>"></td>
+    <td><a href="#" onclick="document.forms.editdb.submit()">Save</a> | <a href="config">Cancel</a></td>
+    </form>
+<% else %>
+    <td><b>Host: </b><%=  @dbinfo["host"] %></td>
+    <td><b>User: </b><%=  @dbinfo["user"] %></td>
+    <td><b>Pass: </b><%=  @dbinfo["pass"] %></td>
+    <td><b>Database: </b><%=  @dbinfo["dbname"] %></td>
+    <td><a href="config?edit=1">Edit</a></td>
+<% end %>
+  </tr>
+</table>
+
+<br>
+
+
+<table border="1">
+  <tr><th colspan="5">Data Sources</th></tr>
+  <tr>
+    <th align="left">Agency</th>
+    <th align="left">String</th>
+    <th align="left">URL</th>
+    <th align="left">Active</th>
+    <th align="left">Action</th>
+  </tr>
+
+  <form name="editfeeds" action="config?savefeed=<%= @editfeed %>" method="post">
+  <%
+     @xml.css("gtfs entry").each do |url|
+  %>
+
+  <% if !@editfeed.nil? and @editfeed == url["dirname"] %>
+      <tr>
+        <td align="left"><input type="text" name="agency" value="<%= url["agency"] %>"></td>
+        <td align="left"><input type="text" name="dirname" value="<%= url["dirname"] %>"></td>
+        <td align="left"><input type="text" name="url" size="100" value="<%= url["url"] %>"></td>
+        <td align="left"><input type="checkbox" name="active" value="1" <%= url["active"] == "1" ? "checked=\"checked\"" : "" %>></td>
+        <td align="left"><a href="#" onclick="document.forms.editfeeds.submit()">Save</a> | <a href="config">Cancel</a></td>
+      </tr>
+  <% else %>
+      <tr>
+        <td align="left"><%= url["agency"] %></td>
+        <td align="left"><%= url["dirname"] %></td>
+        <td align="left"><%= url["url"] %></td>
+        <td align="left"><input type="checkbox" <%= url["active"] == "1" ? "checked=\"checked\"" : "" %> disabled="disabled"></td>
+        <td align="left"><a href="config?editfeed=<%= url["dirname"] %>">Edit</a> | <a href="config?delfeed=<%= url["dirname"] %>">Delete</a></td>
+      </tr>
+  <% end %>
+
+  <% end %>
+  </form>
+
+  <form name="addfeed" action="config?addfeed=1" method="post">
+  <% if @editfeed.nil? %>
+  <tr>
+    <td align="left"><input type="text" name="agency" value=""></td>
+    <td align="left"><input type="text" name="dirname" value=""></td>
+    <td align="left"><input type="text" name="url" size="100" value=""></td>
+    <td align="left"><input type="checkbox" name="active" value="1"></td>
+    <td align="left"><a href="#" onclick="document.forms.addfeed.submit()">Add</a></td>
+  </tr>
+
+  <% end %>
+  </form>
+
+</table>

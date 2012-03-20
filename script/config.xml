@@ -12,17 +12,17 @@
 -->
 <gtfs>
 	<!--<database host="mysql.eecs.oregonstate.edu" user="cs461-team35" pass="HshVpt8rfvMVrPAQ" dbname="cs461-team35" />-->
-	<database host="localhost" user="root" pass="a" dbname="gtfs" />
+	<database host="localhost" user="root" pass="a" dbname="gtfs"/>
 
-	<datapath value="./feeds" />
+	<datapath value="./feeds"/>
 
 	<!--Portland has huge data, it takes time to download-->
-	<!--<entry agency="TriMet" dirname="portland" url="http://developer.trimet.org/schedule/gtfs.zip" />-->
-<!--	<entry agency="Salem" dirname="salem" url="http://www.cherriots.org/developer/gtfs.zip" />
-	<entry agency="Corvallis" dirname="corvallis" url="ftp://ftp.ci.corvallis.or.us/pw/Transportation/GoogleTransitFeed/Google_Transit.zip" />-->
-	<entry agency="Curry" dirname="curry" url="http://www.gtfs-data-exchange.com/agency/curry-public-transit/latest.zip" />
-	<entry agency="Licnoln" dirname="lincoln" url="http://oregon-gtfs.com/gtfs_data/lincolncounty-or-us/google_transit.zip" />
-<!--	<entry agency="Yamhill" dirname="yamhill" url="http://oregon-gtfs.com/gtfs_data/yamhill-or-us/google_transit.zip" />
-	<entry agency="Wilsonville" dirname="wilsonville" url="http://trilliumtransit.com/transit_feeds/wilsonville-or-us/google_transit.zip" />
-	<entry agency="Hood River" dirname="hoodriver" url="http://trilliumtransit.com/transit_feeds/hoodriver-or-us/google_transit.zip" />-->
+	<entry agency="TriMet" dirname="portland" url="http://developer.trimet.org/schedule/gtfs.zip" active="1"/>
+	<entry agency="Salem" dirname="salem" url="http://www.cherriots.org/developer/gtfs.zip" active="0"/>
+	<entry agency="Corvallis" dirname="corvallis" url="ftp://ftp.ci.corvallis.or.us/pw/Transportation/GoogleTransitFeed/Google_Transit.zip" active="0"/>
+	<entry agency="Curry" dirname="curry" url="http://www.gtfs-data-exchange.com/agency/curry-public-transit/latest.zip" active="1"/>
+	<entry agency="Licnoln" dirname="lincoln" url="http://oregon-gtfs.com/gtfs_data/lincolncounty-or-us/google_transit.zip" active="1"/>
+	<entry agency="Yamhill" dirname="yamhill" url="http://oregon-gtfs.com/gtfs_data/yamhill-or-us/google_transit.zip" active="0"/>
+	<entry agency="Wilsonville" dirname="wilsonville" url="http://trilliumtransit.com/transit_feeds/wilsonville-or-us/google_transit.zip" active="0"/>
+	<entry agency="Hood River" dirname="hoodriver" url="http://trilliumtransit.com/transit_feeds/hoodriver-or-us/google_transit.zip" active="0"/>
 </gtfs>

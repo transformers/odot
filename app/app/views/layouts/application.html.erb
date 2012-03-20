@@ -1,14 +1,41 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>App</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
+  <title>ODOT Transit Network Reporting App</title>
 </head>
 <body>
 
-<%= yield %>
-
+<table id="maintable" border="0" width="100%">
+  <tr height="120">
+    <table border="0" width="100%">
+      <tr>
+        <td align="left" valign="center">
+          <img src="/assets/OdotLogo.jpg" height="100" align="center">
+        </td align="left" valign="center">
+        <td>
+          <h1>ODOT Transit Network Reporting Application</h1>
+        </td>
+        <td align="right">
+          <table border="0">
+            <tr>
+              <td valign="top" align="right">Last Update: 03/08/12</td>
+            </tr>
+            <tr>
+              <td valign="bottom" align="right">
+                Welcome, Guest!<br>
+                <a href="/">Home</a> | <a href="example">Map Example</a> | <a href="a">Login</a> | <a href="config">Admin</a> | <a href="a">About</a>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </tr>
+  <tr>
+    <td colspan="3">
+      <%= yield %>
+    </td>
+  </tr>
+</table>
 </body>
 </html>
