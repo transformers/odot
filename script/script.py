@@ -45,7 +45,8 @@ def read_config ():
 
 	#get url entries
 	for node in config_dom.getElementsByTagName("entry"):
-		entries[node.getAttribute("dirname")] = node.getAttribute("url")
+		if(node.getAttribute("active") != "0"):
+			entries[node.getAttribute("dirname")] = node.getAttribute("url")
 
 #	print DB_HOST, DB_USER, DB_PASS, DB_NAME
 
@@ -118,51 +119,60 @@ def update_data ():
 		for file in os.listdir(path):
 			update_data_file(path, file)
 
-# Update each table based on each text file
-# path: path only
-# file: filename
+# Update the data in the database based on a GTFS data file.
+# path: path to the extracted GTFS data (number of .txt files)
+# file: data filename we want to update data from
 def update_data_file (path, file):
-	csv_reader = csv.reader(open(path + "/" + file, 'rb'))
-	row_count = 0
-	fieldnames = []
-	columns = []
-	column_ids = []
-	values = []
+	csv_reader = csv.reader(open(path + "/" + file, 'rb')) # open file and parse as CSV
+	column_names = [] # array of column names from the table in our database
+	column_matches = [] # array of column name from data file that match columns in our database
 
-	#tablename = filename - last 4 chars (.txt)
-	table = file[:-4]
-
-	cursor = run_query("show columns from " + table)
+	# Get column names from appropriate database table.
+	# tablename = filename minus last 4 chars (.txt)
+	table_name = file[:-4]
+	cursor = run_query("show columns from " + table_name)
 	for col in cursor.fetchall():
-		fieldnames.append(col[0])
+		column_names.append(col[0])
 
+	row_index = 0; # so we can detect first row in data file
+	# This array keeps track of which columns found in the first row of the data file are
+	#   actually real columns in the database (otherwise that data will be thrown out).
+	column_ids = []
+	# This array keeps track of the data to insert from the current data file row, according to
+	#   the rows specified in column_ids.
+	values = []
 	for row in csv_reader:
-		#1st row is fieldnames
-		if row_count == 0:
-			i = 0
+		# First row is column headers in the CSV file, we want to populate column_matches and column_ids.
+		if row_index == 0:
+			i = 0 # keep an index for column_ids
 			for field in row:
-				if field in fieldnames:
-					columns.append(field)
+				# If the field corresponds to a field in our database...
+				if field in column_names:
+					column_matches.append(field)
 					column_ids.append(i)
+				# Otherwise show a warning; an error in the data file or the GTFS spec.
 				else:
 					print "WARNING: Unsupported fieldname \"" + field + " detected in " + path + "/" + file
 				i += 1
 
-		#other rows are data
+		# Other rows are data.
 		else:
 			values = []
 			i = 0
 			for field in row:
+				# If the field corresponded to the columns identified in the first row...
 				if i in column_ids:
 					values.append(field)
 				i += 1
 		
-		#print columns
-		#print column_ids
-		#print values		
-		if row_count > 0:
-			insert_row (table, dict(zip(columns, values)))
-		row_count += 1
+		# Now call our next function to insert this row's data into the database.
+		# zip() turns two arrays of equal size into one array of arrays.
+		#    zip([1, 2], [3, 4]) => [[1, 3], [2, 4]]
+		# dict() makes a key-value pair dictionary of the result
+		if row_index > 0:
+			insert_row (table_name, dict(zip(column_matches, values)))
+
+		row_index += 1
 
 # Insert/Update a row of data
 # table: tablename
