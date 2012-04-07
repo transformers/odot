@@ -4,6 +4,7 @@ App::Application.routes.draw do
 
   match 'config' => 'config#show'
   match 'example' => 'home#example'
+  match 'about' => 'about#show'
 
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'

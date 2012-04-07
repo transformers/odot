@@ -3,7 +3,7 @@ require "mysql"
 
 class ConfigController < ActionController::Base
   def show
-    file = File.new("../../proj/script/config.xml", "r+")
+    file = File.new("../script/config.xml", "r+")
     @xml = Nokogiri::XML(file)
     file.close
 
@@ -13,7 +13,7 @@ class ConfigController < ActionController::Base
       db_node["user"] = params[:user]
       db_node["pass"] = params[:pass]
       db_node["dbname"] = params[:dbname]
-      File.open("../../proj/script/config.xml", 'w') {|f| f.write(@xml.to_xml) }
+      File.open("../script/config.xml", 'w') {|f| f.write(@xml.to_xml) }
       #redirect_to "config"
     end
 
@@ -25,7 +25,7 @@ class ConfigController < ActionController::Base
       new_node["url"] = params[:url]
       new_node["active"] = params[:active].nil? ? "0" : "1"
       feed_node.add_next_sibling(new_node)
-      File.open("../../proj/script/config.xml", 'w') {|f| f.write(@xml.to_xml) }
+      File.open("../script/config.xml", 'w') {|f| f.write(@xml.to_xml) }
       #redirect_to "config"
     end
 
@@ -35,13 +35,13 @@ class ConfigController < ActionController::Base
       feed_node["dirname"] = params[:dirname]
       feed_node["url"] = params[:url]
       feed_node["active"] = params[:active].nil? ? "0" : "1"
-      File.open("../../proj/script/config.xml", 'w') {|f| f.write(@xml.to_xml) }
+      File.open("../script/config.xml", 'w') {|f| f.write(@xml.to_xml) }
       #redirect_to "config"
     end
 
     unless params[:delfeed].nil?
       @xml.at_css("gtfs entry[dirname=\"#{params[:delfeed]}\"]").remove
-      File.open("../../proj/script/config.xml", 'w') {|f| f.write(@xml.to_xml) }
+      File.open("../script/config.xml", 'w') {|f| f.write(@xml.to_xml) }
       #redirect_to "config"
     end
 
