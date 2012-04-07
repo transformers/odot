@@ -1,0 +1,21 @@
+<%
+   require "nokogiri"
+%>
+
+<h3>Login</h3>
+
+<form name="login" action="login?save=1" method="post">
+    <table>
+        <tr>
+            <td>Username:</td>
+            <td><input type="text" name="username" size="10" maxlength="50" ></td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td><input type="password" name="password" size="10" maxlength="50" ></td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center"><input type="submit" value="Login" ></td>
+        </tr>
+    </table>
+</form>

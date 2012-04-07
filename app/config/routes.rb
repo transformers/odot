@@ -2,6 +2,7 @@ App::Application.routes.draw do
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
+  match 'login' => 'login#show'
   match 'config' => 'config#show'
   match 'example' => 'home#example'
   match 'about' => 'about#show'
