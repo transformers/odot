@@ -16,8 +16,10 @@
 
 	<datapath value="./feeds"/>
 
+	<user name="zoonb" pass="12345">
+
 	<!--Portland has huge data, it takes time to download-->
-	<entry agency="TriMet" dirname="portland" url="http://developer.trimet.org/schedule/gtfs.zip" active="0"/>
+	<entry agency="TriMet" dirname="portland" url="http://developer.trimet.org/schedule/gtfs.zip" active="1"/>
 	<entry agency="Salem" dirname="salem" url="http://www.cherriots.org/developer/gtfs.zip" active="0"/>
 	<entry agency="Corvallis" dirname="corvallis" url="ftp://ftp.ci.corvallis.or.us/pw/Transportation/GoogleTransitFeed/Google_Transit.zip" active="0"/>
 	<entry agency="Curry" dirname="curry" url="http://www.gtfs-data-exchange.com/agency/curry-public-transit/latest.zip" active="1"/>

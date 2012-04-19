@@ -1,7 +1,8 @@
+require "nokogiri"
 require "mysql"
 
 class HomeController < ActionController::Base
-  def example
-
+  def home
+    render :layout => "application"
   end
 end

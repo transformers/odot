@@ -1,0 +1,79 @@
+<html><body>
+<div id="mapdiv"></div>
+<% if(@error) %> Error with arguments. <% else %>
+<script src="http://www.openlayers.org/api/OpenLayers.js"></script>
+<script>
+    map = new OpenLayers.Map("mapdiv");
+    map.addLayer(new OpenLayers.Layer.OSM());
+
+    var markers = new OpenLayers.Layer.Markers("Markers");
+    map.addLayer(markers);
+
+    var points = [
+        <%
+            @stops.each do |stop|
+        %>
+        new OpenLayers.LonLat(<%= stop[1] %>, <%= stop[0] %>),
+        <% end %>
+    ];
+
+
+    var point;
+    for (point in points) {
+           points[point].transform(
+               new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
+               map.getProjectionObject() // to Spherical Mercator Projection
+           );
+
+        markers.addMarker(new OpenLayers.Marker(points[point]));
+    }
+
+    var lineLayer = new OpenLayers.Layer.Vector("Line Layer");
+
+    map.addLayer(lineLayer);
+
+
+    var route_points;
+    var line;
+    var colors = ['red', 'green', 'blue', 'yellow', 'orange', 'purple'];
+    var style;
+    var i=0;
+    var lineFeature;
+
+    <% @shapes.each do |path| %>
+
+    route_points = [
+        <% path.each do |latlon| %>
+        new OpenLayers.Geometry.Point(<%= latlon[0] %>, <%= latlon[1] %>),
+        <% end %>
+    ];
+
+    for (point in route_points) {
+        route_points[point].transform(
+                new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
+                map.getProjectionObject() // to Spherical Mercator Projection
+        );
+    }
+
+    line = new OpenLayers.Geometry.LineString(route_points);
+
+    style = { strokeColor: colors[i],
+        strokeOpacity: 0.5,
+        strokeWidth: 5
+    };
+
+    lineFeature = new OpenLayers.Feature.Vector(line, null, style);
+    lineLayer.addFeatures([lineFeature]);
+
+    i++;
+    <% end %>
+
+    var zoom=8;
+
+    map.setCenter (points[1], zoom);
+    lineLayer.redraw();
+    markers.redraw();
+</script>
+<% end %>
+
+</body></html>

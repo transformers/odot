@@ -41,7 +41,7 @@ create table stops (
 );
 
 create table routes (
-	id int(11) not null primary key auto_increment,
+        id int(11) not null primary key auto_increment,
 	route_id varchar(100) not null,
 	agency_id varchar(100),
 	route_short_name varchar(200) not null,

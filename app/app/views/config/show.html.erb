@@ -2,6 +2,12 @@
    require "nokogiri"
 %>
 
+<% if @warn %>
+<div style="color:red"><b>Invalid credentials. Try again.</b></div><br>
+<% end %>
+
+<% if @authenticated %>
+
 <h3>Update Script</h3>
 
 <table>
@@ -79,3 +85,15 @@
   </form>
 
 </table>
+
+<% else %>
+
+<form action="config" method="post">
+   <table border="0">
+     <tr><td>Username:&nbsp;&nbsp;</td><td><input type="text" name="uname"></td></tr>
+     <tr><td>Password:&nbsp;&nbsp;</td><td><input type="text" name="passw"></td></tr>
+     <tr><td colspan="2"><input type="Submit" value="Submit"></td></tr>
+   </table>
+</form>
+
+<% end %>
