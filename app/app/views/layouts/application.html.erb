@@ -3,8 +3,8 @@
 <head>
   <title>ODOT Transit Network Reporting App</title>
 </head>
-<body>
 
+<body>
 <table id="maintable" border="0" width="100%">
   <tr height="120">
     <table border="0" width="100%">
@@ -18,11 +18,12 @@
         <td align="right">
           <table border="0">
             <tr>
-              <td valign="top" align="right">Last Update: 4/19/2012</td>
+              <td valign="top" align="right">Today: <i><%= Time.now.strftime("%m/%d/%Y") %></i></td>
             </tr>
             <tr>
               <td valign="bottom" align="right">
-                <a href="/">Home</a> | <a href="config">Admin</a> | <a href="a">About</a>
+                <a href="/">Home</a> | <a href="config">Admin</a> |
+                <a href="/">Map</a> | <a href="about">About</a>
               </td>
             </tr>
           </table>
@@ -30,10 +31,9 @@
       </tr>
     </table>
   </tr>
+  <br/>
   <tr>
-    <td colspan="3">
-      <%= yield %>
-    </td>
+    <td colspan="3"><%= yield %></td>
   </tr>
 </table>
 </body>

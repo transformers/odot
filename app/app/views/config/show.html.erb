@@ -16,17 +16,17 @@
 
 <% if @edit == "1" %>
     <form name="editdb" action="config?save=1" method="post">
-    <td><b>Host: </b><input type="text" name="host" size="10" value="<%=  @dbinfo["host"] %>"></td>
-    <td><b>User: </b><input type="text" name="user" size="10" value="<%=  @dbinfo["user"] %>"></td>
-    <td><b>Pass: </b><input type="text" name="pass" size="10" value="<%=  @dbinfo["pass"] %>"></td>
-    <td><b>Database: </b><input type="text" name="dbname" size="10" value="<%=  @dbinfo["dbname"] %>"></td>
+    <td><b>- Host: </b><input type="text" name="host" size="10" value="<%= @dbinfo["host"] %>"></td>
+    <td><b>- User: </b><input type="text" name="user" size="10" value="<%= @dbinfo["user"] %>"></td>
+    <td><b>- Pass: </b><input type="text" name="pass" size="10" value="<%= @dbinfo["pass"] %>"></td>
+    <td><b>- Database: </b><input type="text" name="dbname" size="10" value="<%= @dbinfo["dbname"] %>"></td>
     <td><a href="#" onclick="document.forms.editdb.submit()">Save</a> | <a href="config">Cancel</a></td>
     </form>
 <% else %>
-    <td><b>Host: </b><%=  @dbinfo["host"] %></td>
-    <td><b>User: </b><%=  @dbinfo["user"] %></td>
-    <td><b>Pass: </b><%=  @dbinfo["pass"] %></td>
-    <td><b>Database: </b><%=  @dbinfo["dbname"] %></td>
+    <td><b>-Host: </b><%= @dbinfo["host"] %></td>
+    <td><b>-User: </b><%= @dbinfo["user"] %></td>
+    <td><b>-Pass: </b><%= @dbinfo["pass"] %></td>
+    <td><b>-Database: </b><%= @dbinfo["dbname"] %></td>
     <td><a href="config?edit=1">Edit</a></td>
 <% end %>
   </tr>
@@ -90,9 +90,9 @@
 
 <form action="config" method="post">
    <table border="0">
-     <tr><td>Username:&nbsp;&nbsp;</td><td><input type="text" name="uname"></td></tr>
-     <tr><td>Password:&nbsp;&nbsp;</td><td><input type="text" name="passw"></td></tr>
-     <tr><td colspan="2"><input type="Submit" value="Submit"></td></tr>
+     <tr><td>Username:&nbsp;&nbsp;</td><td><input type="text" name="uname" maxlength="20"></td></tr>
+     <tr><td>Password:&nbsp;&nbsp;</td><td><input type="password" name="pword" maxlength="20"></td></tr>
+     <tr><td>&nbsp;</td><td><input type="Submit" value="Login"></td></tr>
    </table>
 </form>
 
