@@ -5,7 +5,7 @@ App::Application.routes.draw do
   match 'config' => 'config#show'
   match 'about' => 'about#show'
   #match 'example' => 'home#example'
-  match 'api/routemap' => 'api#route_map'
+  match 'api' => 'api#route_map'
   match '/' => 'home#home'
 
   # Sample of regular route:

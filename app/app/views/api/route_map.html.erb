@@ -1,4 +1,3 @@
-<html><body>
 <div id="mapdiv"></div>
 <% if(@error) %> Error with arguments. <% else %>
 <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
@@ -6,17 +5,25 @@
     map = new OpenLayers.Map("mapdiv");
     map.addLayer(new OpenLayers.Layer.OSM());
 
+
+    // STOPS
     var markers = new OpenLayers.Layer.Markers("Markers");
     map.addLayer(markers);
 
     var points = [
         <%
-            @stops.each do |stop|
+            stopnames = {}
+            @routes.each do |route|
+                route.stops.keys.each do |stop|
+                    if stopnames[stop].nil?
+                        stopnames[stop] = true
         %>
-        new OpenLayers.LonLat(<%= stop[1] %>, <%= stop[0] %>),
-        <% end %>
+        new OpenLayers.LonLat(<%= route.stops[stop].lon %>, <%= route.stops[stop].lat %>),
+        <%          end
+                end
+            end
+        %>
     ];
-
 
     var point;
     for (point in points) {
@@ -28,45 +35,54 @@
         markers.addMarker(new OpenLayers.Marker(points[point]));
     }
 
-    var lineLayer = new OpenLayers.Layer.Vector("Line Layer");
 
+    // LINES
+    var lineLayer = new OpenLayers.Layer.Vector("Line Layer");
     map.addLayer(lineLayer);
 
-
     var route_points;
+    var pair;
     var line;
-    var colors = ['red', 'green', 'blue', 'yellow', 'orange', 'purple'];
+    //var colors = ['red', 'green', 'blue', 'yellow', 'orange', 'purple'];
     var style;
     var i=0;
-    var lineFeature;
-
-    <% @shapes.each do |path| %>
+    var lineFeatures = [];
 
     route_points = [
-        <% path.each do |latlon| %>
-        new OpenLayers.Geometry.Point(<%= latlon[0] %>, <%= latlon[1] %>),
-        <% end %>
+        <% @routes.each do |route|
+                route.connections.each do |key, conn|
+                    conn.each do |link| %>
+        [ new OpenLayers.Geometry.Point(<%= route.stops[key].lon %>, <%= route.stops[key].lat %>),
+          new OpenLayers.Geometry.Point(<%= route.stops[link].lon %>, <%= route.stops[link].lat %>) ],
+        <%          end
+                end
+           end
+        %>
     ];
 
-    for (point in route_points) {
-        route_points[point].transform(
+    for (pair in route_points) {
+        route_points[pair][0].transform(
                 new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
                 map.getProjectionObject() // to Spherical Mercator Projection
         );
+        route_points[pair][1].transform(
+                new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
+                map.getProjectionObject() // to Spherical Mercator Projection
+        );
+
+        //document.write("Hi1");
+        line = new OpenLayers.Geometry.LineString(route_points[pair]);
+        //document.write("Hi2");
+        style = { strokeColor: 'blue',
+            strokeOpacity: 0.5,
+            strokeWidth: 5
+        };
+        //document.write("Hi3");
+
+        lineFeatures.push(new OpenLayers.Feature.Vector(line, null, style));
+        //document.write("Hi4");
     }
-
-    line = new OpenLayers.Geometry.LineString(route_points);
-
-    style = { strokeColor: colors[i],
-        strokeOpacity: 0.5,
-        strokeWidth: 5
-    };
-
-    lineFeature = new OpenLayers.Feature.Vector(line, null, style);
-    lineLayer.addFeatures([lineFeature]);
-
-    i++;
-    <% end %>
+    lineLayer.addFeatures(lineFeatures);
 
     var zoom=8;
 
@@ -75,5 +91,3 @@
     markers.redraw();
 </script>
 <% end %>
-
-</body></html>
