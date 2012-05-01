@@ -22,6 +22,8 @@ data_path = ""
 
 entries = {}
 
+agency_id = ""
+
 # Read an XML config file to get login information
 def read_config ():
 	#this function will modify the values of these global variables
@@ -97,6 +99,8 @@ def download_data ():
 
 # Update whole database
 def update_data ():
+	global agency_id
+
 	# clear current database so new data can be added
 	run_query("delete from agency")
 	run_query("delete from stops")
@@ -116,6 +120,7 @@ def update_data ():
 	for dirname in entries.keys():
 		print "Updating data for " + dirname + "..."
 		path = data_path + "/" + dirname
+		agency_id = dirname
 		for file in os.listdir(path):
 			update_data_file(path, file)
 
@@ -146,7 +151,7 @@ def update_data_file (path, file):
 					columns.append(field)
 					column_ids.append(i)
 				else:
-					print "WARNING: Unsupported fieldname \"" + field + " detected in " + path + "/" + file
+					print "WARNING: Unsupported fieldname \"" + field + "\" detected in " + path + "/" + file
 				i += 1
 
 		#other rows are data
@@ -171,7 +176,7 @@ def update_data_file (path, file):
 # fieldnames: an array of fieldnames
 # row: a row of data, fields are seperated by ;
 def insert_row (table, values):
-	unique_fields = {"agency": "agency_id", "stops": "stop_id", "routes": "route_id",
+	unique_fields = {"stops": "stop_id", "routes": "route_id",
                          "trips": "trip_id", "calendar": "service_id", "fare_attributes": "fare_id"}
 
 	if table in unique_fields.keys():
@@ -190,6 +195,12 @@ def insert_row (table, values):
 	#print query
 
 	run_query (query)
+	if (table == "agency"):
+		cursor = run_query("select max(id) from agency")
+		run_query ("update agency set agency_id='" + agency_id + "' where id = " + str(cursor.fetchone()[0]))
+	if (table == "routes"):
+		cursor = run_query("select max(id) from routes")
+		run_query ("update routes set agency_id='" + agency_id + "' where id = " + str(cursor.fetchone()[0])) 
 
 # Execute a query
 # query: the query will be executed

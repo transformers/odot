@@ -16,7 +16,7 @@
 
 	<datapath value="./feeds"/>
 
-	<user name="zoonb" pass="12345">
+	<user name="zoonb" pass="12345"/>
 
 	<!--Portland has huge data, it takes time to download-->
 	<entry agency="TriMet" dirname="portland" url="http://developer.trimet.org/schedule/gtfs.zip" active="1"/>
