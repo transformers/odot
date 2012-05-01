@@ -13,6 +13,7 @@ class MapController < ActionController::Base
     begin
       db = Mysql.new(@dbinfo["host"], @dbinfo["user"], @dbinfo["pass"], @dbinfo["dbname"])
       @agencies = db.query("select * from agency")
+      @routes = db.query("select route_id, agency_id, route_long_name from routes")
     rescue
       @dberror = true
     ensure
@@ -22,4 +23,3 @@ class MapController < ActionController::Base
     render :layout => "application"
   end
 end
-

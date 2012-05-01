@@ -20,6 +20,10 @@
     <td>Route: </td>
     <td>
       <select name="route" size="1">
+        <% @routes.each do |r| %>
+            <!-- r[1] = route_id; r[3] = route_long_name -->
+            <option value="<%= r[1] %>"> <%= r[2] %> </option>
+        <% end %>
       </select>
     </td>
   </tr>
