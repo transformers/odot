@@ -3,8 +3,8 @@ App::Application.routes.draw do
   # first created -> highest priority.
 
   match 'config' => 'config#show'
+  match 'map' => 'map#show'
   match 'about' => 'about#show'
-  #match 'example' => 'home#example'
   match 'api' => 'api#route_map'
   match '/' => 'home#home'
 

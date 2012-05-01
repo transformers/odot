@@ -63,6 +63,7 @@ class ConfigController < ActionController::Base
 
       @dbinfo = @xml.at_css("gtfs database")
 
+=begin
       @dberror = false
       begin
         db = Mysql.new(@dbinfo["host"], @dbinfo["user"], @dbinfo["pass"], @dbinfo["dbname"])
@@ -72,6 +73,7 @@ class ConfigController < ActionController::Base
       ensure
         db.close()
       end
+=end
 
       @edit = params[:edit]
       @editfeed = params[:editfeed]
