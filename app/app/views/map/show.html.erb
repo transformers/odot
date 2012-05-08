@@ -1,8 +1,14 @@
-<%
-   require "nokogiri"
-%>
-
 <h3>Map</h3>
+
+<% form_for (@map) do |form| %>
+    <% form.inputs do %>
+        <%= form.input :agency_id, :collection=>Agency.find(:all, :order=>:agency_name).collect{ |a| [a.agency_name,a.agency_id]}, :required=>true %>
+        <div id="addressRoutes">
+          <%= render :partial => 'routes'  %>
+        </div>
+        <%= form.buttons :commit %>
+    <% end %>
+<% end %>
 
 <table>
   <tr>

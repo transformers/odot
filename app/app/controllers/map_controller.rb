@@ -20,6 +20,11 @@ class MapController < ActionController::Base
       db.close()
     end
 
+    def update_route_select
+      routes = Route.where(:agency_id=>params[:agency_id]).order(:agency_name) unless params[:agency_id].blank?
+      render :partial => "routes", :locals => { :routes => routes }
+    end
+
     render :layout => "application"
   end
 end

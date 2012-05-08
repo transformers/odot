@@ -1,0 +1,9 @@
+<%= form_for "map" do |form| %>
+    <%= form.inputs do %>
+        <% if !routes.blank? %>
+            <%= form.input :route_id, :collection=>routes.collect{ |r| [r.route_long_name,r.route_id]} %>
+        <% else %>
+            <%= form.input :route_id, :collection=>[] %>
+        <% end %>
+    <% end %>
+<% end %>
