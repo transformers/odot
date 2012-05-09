@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ODOT Transit Network Reporting App</title>
+</head>
+
+<body>
+<table id="maintable" border="0" width="100%">
+  <tr height="120">
+    <table border="0" width="100%">
+      <tr>
+        <td align="left" valign="center">
+          <img src="/assets/OdotLogo.jpg" height="100" align="center">
+        </td align="left" valign="center">
+        <td>
+          <h1>ODOT Transit Network Reporting Application</h1>
+        </td>
+        <td align="right">
+          <table border="0">
+            <tr>
+              <td valign="top" align="right">Today: <i><%= Time.now.strftime("%m/%d/%Y") %></i></td>
+            </tr>
+            <tr>
+              <td valign="bottom" align="right">
+                <a href="/">Home</a> | <a href="config">Admin</a> |
+                <a href="/">Map</a> | <a href="about">About</a>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </tr>
+  <br/>
+  <tr>
+    <td colspan="3"><%= yield %></td>
+  </tr>
+</table>
+</body>
+</html>

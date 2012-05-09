@@ -1,0 +1,1 @@
+mysql -h mysql.eecs.oregonstate.edu -u cs461-team35 -pHshVpt8rfvMVrPAQ cs461-team35
