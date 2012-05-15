@@ -1,36 +1,36 @@
 <h3>Map</h3>
 
-<% form_for (@map) do |form| %>
-    <% form.inputs do %>
-        <%= form.input :agency_id, :collection=>Agency.find(:all, :order=>:agency_name).collect{ |a| [a.agency_name,a.agency_id]}, :required=>true %>
-        <div id="addressRoutes">
-          <%= render :partial => 'routes'  %>
-        </div>
-        <%= form.buttons :commit %>
-    <% end %>
-<% end %>
-
 <table>
-  <tr>
-    <td>Agency: </td>
-    <td>
-      <select name="agency" size="1">
-        <% @agencies.each do |agen| %>
-        <!-- agen[1] = agency_id; agen[2] = agency_name -->
-        <option value="<%= agen[1] %>"> <%= agen[2] %> </option>
-        <% end %>
-      </select>
+  <tr valign="top">
+    <td width="30%" style="border: 1px solid black">
+      <table>
+        <tr>
+          <td>Agency: </td>
+          <td>
+            <select name="agency" size="1">
+              <% @agencies.each do |agen| %>
+                  <!-- agen[0] = agency_id; agen[1] = agency_name -->
+                  <option value="<%= agen[0] %>"> <%= agen[1] %> </option>
+              <% end %>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>Route: </td>
+          <td>
+            <select name="route" size="1">
+              <% @routes.each do |r| %>
+                  <!-- r[0] = route_id; r[3] = route_long_name -->
+                  <option value="<%= r[0] %>"> <%= r[3] %> </option>
+              <% end %>
+            </select>
+          </td>
+        </tr>
+      </table>
     </td>
-  </tr>
-  <tr>
-    <td>Route: </td>
-    <td>
-      <select name="route" size="1">
-        <% @routes.each do |r| %>
-            <!-- r[1] = route_id; r[3] = route_long_name -->
-            <option value="<%= r[1] %>"> <%= r[2] %> </option>
-        <% end %>
-      </select>
+
+    <td width="70%" style="border: 1px solid black">
+      <iframe src="www.google.com" width="100%" style="border: 0">aaa</iframe>
     </td>
   </tr>
 </table>

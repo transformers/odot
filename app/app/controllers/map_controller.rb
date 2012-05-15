@@ -12,8 +12,10 @@ class MapController < ActionController::Base
     @dberror = false
     begin
       db = Mysql.new(@dbinfo["host"], @dbinfo["user"], @dbinfo["pass"], @dbinfo["dbname"])
-      @agencies = db.query("select * from agency")
-      @routes = db.query("select route_id, agency_id, route_long_name from routes")
+      @agencies = db.query("SELECT agency_id,
+CASE WHEN LENGTH(TRIM(agency_name))>33 THEN CONCAT(LEFT(TRIM(agency_name), 30),'...') ELSE TRIM(agency_name) END FROM agency")
+      @routes = db.query("SELECT route_id, agency_id, route_short_name,
+CASE WHEN LENGTH(TRIM(route_long_name))>33 THEN CONCAT(LEFT(TRIM(route_long_name), 30),'...') ELSE TRIM(route_long_name) END FROM routes")
     rescue
       @dberror = true
     ensure
