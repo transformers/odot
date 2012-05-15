@@ -1,3 +1,5 @@
+<%= stylesheet_link_tag "application.css" %>
+
 <h3>Map</h3>
 
 <table>
@@ -24,6 +26,12 @@
                   <option value="<%= r[0] %>"> <%= r[3] %> </option>
               <% end %>
             </select>
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>
+            <input type="button" name="AddToMap" value="Add To Map" />
           </td>
         </tr>
       </table>
