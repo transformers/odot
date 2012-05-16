@@ -151,7 +151,7 @@ def update_data_file (path, file):
 					columns.append(field)
 					column_ids.append(i)
 				else:
-					print "WARNING: Unsupported fieldname \"" + field + "\" detected in " + path + "/" + file
+					print "WARNING: Unsupported fieldname \"" + field + " detected in " + path + "/" + file
 				i += 1
 
 		#other rows are data
@@ -176,8 +176,11 @@ def update_data_file (path, file):
 # fieldnames: an array of fieldnames
 # row: a row of data, fields are seperated by ;
 def insert_row (table, values):
-	unique_fields = {"stops": "stop_id", "routes": "route_id",
+	unique_fields = {"agency": "agency_id", "stops": "stop_id", "routes": "route_id",
                          "trips": "trip_id", "calendar": "service_id", "fare_attributes": "fare_id"}
+
+	id_fields = ["agency_id", "stop_id", "zone_id", "route_id", "service_id", "trip_id", "block_id", 
+                     "shape_id", "fare_id", "origin_id", "destination_id", "contains_id", "from_stop_id", "to_stop_id"]
 
 	if table in unique_fields.keys():
 		cursor = run_query("select * from " + table + " where " + unique_fields[table] + "='" + values[unique_fields[table]] + "'")
@@ -188,19 +191,23 @@ def insert_row (table, values):
 	for name in values.keys():
 		query += name + ", "
 	query = query[:-2] + ") values ("
-	for value in values.values():
-		query += "'" + escape_string(value) + "', "
+	for (name, value) in values.items():
+		query += "'"
+		if(name in id_fields): 
+			query += agency_id + "_"
+                query +=  escape_string(value) + "', "
 	query = query[:-2] + ")"
 
 	#print query
 
 	run_query (query)
-	if (table == "agency"):
-		cursor = run_query("select max(id) from agency")
-		run_query ("update agency set agency_id='" + agency_id + "' where id = " + str(cursor.fetchone()[0]))
-	if (table == "routes"):
-		cursor = run_query("select max(id) from routes")
-		run_query ("update routes set agency_id='" + agency_id + "' where id = " + str(cursor.fetchone()[0])) 
+
+	if (table == "agency" and "agency_id" not in values):
+                cursor = run_query("select max(id) from agency")
+                run_query ("update agency set agency_id='" + agency_id + "' where id = " + str(cursor.fetchone()[0]))
+        if (table == "routes" and "agency_id" not in values):
+                cursor = run_query("select max(id) from routes")
+                run_query ("update routes set agency_id='" + agency_id + "' where id = " + str(cursor.fetchone()[0]))
 
 # Execute a query
 # query: the query will be executed
