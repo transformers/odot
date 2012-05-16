@@ -1,0 +1,103 @@
+<div id="mapdiv"></div>
+<% if(@error) %> Error with arguments. <% else %>
+    <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
+    <script>
+        map = new OpenLayers.Map("mapdiv");
+        map.addLayer(new OpenLayers.Layer.OSM());
+
+
+        // LINES
+        var lineLayer = new OpenLayers.Layer.Vector("Line Layer");
+        map.addLayer(lineLayer);
+
+        var route_points;
+        var list, pt;
+        var line;
+        var style;
+        var i=0;
+        var lineFeatures = [];
+
+        <% if @showShapes %>
+
+        route_points = [
+            <% @shapes.each do |sid, shape| %>
+            [
+                <% shape.points.each do |pt| %>
+                new OpenLayers.Geometry.Point(<%= pt.lon %>, <%= pt.lat %>),
+                <% end %>
+            ],
+            <% end %>
+        ];
+
+        <% else %>
+
+        route_points = [
+            <% @connections.each do |key, val|
+         val.each do |link| %>
+            [ new OpenLayers.Geometry.Point(<%= @stops[key].pt.lon %>, <%= @stops[key].pt.lat %>),
+                new OpenLayers.Geometry.Point(<%= @stops[link].pt.lon %>, <%= @stops[link].pt.lat %>) ],
+            <% end %>
+            <% end %>
+        ];
+
+        <% end %>
+
+        for (list in route_points) {
+            for (pt in route_points[list]) {
+                route_points[list][pt].transform(
+                        new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
+                        map.getProjectionObject() // to Spherical Mercator Projection
+                );
+            }
+
+            //document.write("Hi1");
+            line = new OpenLayers.Geometry.LineString(route_points[list]);
+            //document.write("Hi2");
+            style = { strokeColor: 'blue',
+                strokeOpacity: 0.5,
+                strokeWidth: 5
+            };
+            //document.write("Hi3");
+
+            lineFeatures.push(new OpenLayers.Feature.Vector(line, null, style));
+            //document.write("Hi4");
+        }
+        lineLayer.addFeatures(lineFeatures);
+
+
+        // STOPS
+        var markers = new OpenLayers.Layer.Markers("Markers");
+        map.addLayer(markers);
+
+        //document.write("1");
+
+        <%
+            i=0
+            @stops.each do |id, stop|
+        %>
+        var marker<%= i %> = new OpenLayers.Marker(new OpenLayers.LonLat(<%= stop.pt.lon %>, <%= stop.pt.lat %>).transform(new OpenLayers.Projection("EPSG:4326"), map.getProjectionObject()));
+        //document.write("2");
+        marker<%= i %>.events.register("click", marker<%= i %>, function(e) {
+            var popup<%= i %> = new OpenLayers.Popup.FramedCloud("info<%= i %>",
+                    new OpenLayers.LonLat(<%= stop.pt.lon %>, <%= stop.pt.lat %>).transform(new OpenLayers.Projection("EPSG:4326"), map.getProjectionObject()),
+                    new OpenLayers.Size(200, 200),
+                    "<b><%= stop.name %></b><% if(stop.desc.length > 1) %><br><%= stop.desc %><% end %><br>Agency: <%= @routes[stop.routes[0]].agency_name %><br>Route: <% if(@routes[stop.routes[0]].route_url.length > 1) %><a href='<%= @routes[stop.routes[0]].route_url %>'><%= @routes[stop.routes[0]].route_long_name %></a><% else %><%= @routes[stop.routes[0]].route_long_name %><% end %><% if(stop.url.length > 1) %><br><a href='<%= stop.url %>'>Link</a><% end %>",
+                    null, true);
+            map.addPopup(popup<%= i %>);
+            //document.write("<%=stop.desc.length %><%=stop.url.length %>");
+            OpenLayers.Event.stop(e);
+        });
+        //document.write("3");
+        markers.addMarker(marker<%= i %>);
+        <%    i=i+1
+            end
+        %>
+
+        //document.write("4");
+        var zoom=10
+
+        map.setCenter (new OpenLayers.LonLat(-124.0, 44.6).transform(new OpenLayers.Projection("EPSG:4326"), map.getProjectionObject()), zoom);
+        lineLayer.redraw();
+        markers.redraw();
+    </script>
+<% end %>

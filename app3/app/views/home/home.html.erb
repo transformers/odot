@@ -1,0 +1,54 @@
+<script>
+  $(function() {
+      populate_agencies();
+      populate_routes($("#agency option:selected").attr("value"));
+      update_map();
+
+      $("#agency").change(function() {
+          populate_routes($("#agency option:selected").attr("value"));
+      })
+  });
+
+  function populate_agencies() {
+      <% @agencies.each do |agency| %>
+      $("#agency").append("<option value='<%= agency.agency_id %>'><%= agency.agency_name %></option>");
+      <% end %>
+  }
+
+  function populate_routes(agency) {
+      $("#route").html("");
+      switch(agency) {
+      <% @agencies.each do |agency| %>
+      case '<%= agency.agency_id %>':
+              <% @routes.each do |route|
+                    if route.agency_id == agency.agency_id %>
+             $("#route").append("<option value='<%= route.route_id %>'><%= route.route_long_name %></option>");
+              <%    end
+                 end %>
+             break;
+
+      <% end %>
+      }
+  }
+
+  function update_map () {
+      $("#map").attr("src", "api?routes=" + $("#route option:selected").attr("value"));
+      $("#url").html("api?routes=" + $("#route option:selected").attr("value"));
+  }
+</script>
+
+<h1>Welcome to our application!</h1>
+
+<p>Please select a route below and click display to see it on the map.</p>
+
+<form>
+  Agency: <select id="agency" name="agency"></select><br>
+  Route: <select id="route" name="route"></select><br>
+  <input type="button" value="Go!" onclick="update_map()">
+</form>
+
+<br>
+<iframe id="map" src="http://www.google.com" height="800" width="100%"></iframe>
+<br><br>
+<b>HTML Code to Embed:</b> <br>
+<span style="background-color:#CCCCCC"><tt>&lt;iframe src="http://gtfs-test.com/<span id="url"></span>"&gt;&lt;/iframe&gt;</tt></span>

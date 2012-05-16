@@ -1,0 +1,73 @@
+<%
+   require "nokogiri"
+%>
+
+<% if @warn %>
+    <div style="color:red"><b>Invalid credentials. Try again.</b></div><br>
+<% end %>
+
+<% if @authenticated %>
+
+    <h3>Update Data Sources</h3>
+
+    <table border="1">
+      <tr>
+        <th align="left">Agency</th>
+        <th align="left">String</th>
+        <th align="left">URL</th>
+        <th align="left">Active</th>
+        <th align="left">Action</th>
+      </tr>
+
+      <form name="editfeeds" action="config?savefeed=<%= @editfeed %>" method="post">
+        <%
+           @xml.css("gtfs entry").each do |url|
+        %>
+
+            <% if !@editfeed.nil? and @editfeed == url["dirname"] %>
+                <tr>
+                  <td align="left"><input type="text" name="agency" value="<%= url["agency"] %>"></td>
+                  <td align="left"><input type="text" name="dirname" value="<%= url["dirname"] %>"></td>
+                  <td align="left"><input type="text" name="url" size="100" value="<%= url["url"] %>"></td>
+                  <td align="left"><input type="checkbox" name="active" value="1" <%= url["active"] == "1" ? "checked=\"checked\"" : "" %>></td>
+                  <td align="left"><a href="#" onclick="document.forms.editfeeds.submit()">Save</a> | <a href="config">Cancel</a></td>
+                </tr>
+            <% else %>
+                <tr>
+                  <td align="left"><%= url["agency"] %></td>
+                  <td align="left"><%= url["dirname"] %></td>
+                  <td align="left"><%= url["url"] %></td>
+                  <td align="left"><input type="checkbox" <%= url["active"] == "1" ? "checked=\"checked\"" : "" %> disabled="disabled"></td>
+                  <td align="left"><a href="config?editfeed=<%= url["dirname"] %>">Edit</a> | <a href="config?delfeed=<%= url["dirname"] %>">Delete</a></td>
+                </tr>
+            <% end %>
+
+        <% end %>
+      </form>
+
+      <form name="addfeed" action="config?addfeed=1" method="post">
+        <% if @editfeed.nil? %>
+            <tr>
+              <td align="left"><input type="text" name="agency" value=""></td>
+              <td align="left"><input type="text" name="dirname" value=""></td>
+              <td align="left"><input type="text" name="url" size="100" value=""></td>
+              <td align="left"><input type="checkbox" name="active" value="1"></td>
+              <td align="left"><a href="#" onclick="document.forms.addfeed.submit()">Add</a></td>
+            </tr>
+
+        <% end %>
+      </form>
+
+    </table>
+
+<% else %>
+
+    <form action="config" method="post">
+      <table border="0">
+        <tr><td>Username:&nbsp;&nbsp;</td><td><input type="text" name="uname" maxlength="20"></td></tr>
+        <tr><td>Password:&nbsp;&nbsp;</td><td><input type="password" name="pword" maxlength="20"></td></tr>
+        <tr><td>&nbsp;</td><td><input type="Submit" value="Login"></td></tr>
+      </table>
+    </form>
+
+<% end %>
