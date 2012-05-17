@@ -39,16 +39,34 @@
 
 <h1>Welcome to our application!</h1>
 
-<p>Please select a route below and click display to see it on the map.</p>
-
 <form>
-  Agency: <select id="agency" name="agency"></select><br>
-  Route: <select id="route" name="route"></select><br>
-  <input type="button" value="Go!" onclick="update_map()">
+  <table>
+    <tr>
+      <td colspan="2">Please select a route below and click display to see it on the map.</td>
+    </tr>
+    <tr>
+      <td>Agency: </td>
+      <td><select id="agency" name="agency"></select></td>
+    </tr>
+    <tr>
+      <td>Route: </td>
+      <td><select id="route" name="route"></select></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><input type="button" value="Go!" onclick="update_map()"></td>
+    </tr>
+  </table>
 </form>
 
 <br>
 <iframe id="map" src="http://www.google.com" height="800" width="100%"></iframe>
 <br><br>
-<b>HTML Code to Embed:</b> <br>
-<span style="background-color:#CCCCCC"><tt>&lt;iframe src="http://gtfs-test.com/<span id="url"></span>"&gt;&lt;/iframe&gt;</tt></span>
+
+<p align="center">To embed this map into your website, copy and paste the code below to your website's html.
+  <br>The code changes based on your selection.</p>
+<p align="center">
+<span style="background-color:#CCCCCC; border:1pt solid black;">
+  &nbsp;&nbsp;&nbsp;<tt>&lt;iframe src="http://gtfs-test.com/<span id="url"></span>"&gt;&lt;/iframe&gt;</tt>&nbsp;&nbsp;&nbsp;
+</span>
+</p>

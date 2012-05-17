@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!--
-	File: gtfs_urls.xml
+	File: config.xml
 	Author: Ben Zoon
 	Data: December 20, 2011
 
@@ -11,7 +11,6 @@
 	Also, there are a few setup variables defined here.
 -->
 <gtfs>
-	<!--<database host="mysql.eecs.oregonstate.edu" user="cs461-team35" pass="HshVpt8rfvMVrPAQ" dbname="cs461-team35" />-->
 	<database host="localhost" user="root" pass="a" dbname="gtfs"/>
 
 	<datapath value="./feeds"/>

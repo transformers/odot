@@ -1,3 +1,5 @@
+<%= stylesheet_link_tag "application.css" %>
+
 <%
    require "nokogiri"
 %>
@@ -10,56 +12,54 @@
 
     <h3>Update Data Sources</h3>
 
-    <table border="1">
+    <table border="1" width="100%">
       <tr>
-        <th align="left">Agency</th>
-        <th align="left">String</th>
-        <th align="left">URL</th>
-        <th align="left">Active</th>
-        <th align="left">Action</th>
+        <th align="left" style="width:13%">Agency</th>
+        <th align="left" style="width:13%">String</th>
+        <th align="left" style="width:56%">URL</th>
+        <th align="left" style="width:6%">Active</th>
+        <th align="left" style="width:12%">Action</th>
       </tr>
 
-      <form name="editfeeds" action="config?savefeed=<%= @editfeed %>" method="post">
+      <form name="editfeeds" action="config?savefeed=<%= @editfeed %>" method="post" style="width:100%">
         <%
            @xml.css("gtfs entry").each do |url|
         %>
 
             <% if !@editfeed.nil? and @editfeed == url["dirname"] %>
                 <tr>
-                  <td align="left"><input type="text" name="agency" value="<%= url["agency"] %>"></td>
-                  <td align="left"><input type="text" name="dirname" value="<%= url["dirname"] %>"></td>
-                  <td align="left"><input type="text" name="url" size="100" value="<%= url["url"] %>"></td>
-                  <td align="left"><input type="checkbox" name="active" value="1" <%= url["active"] == "1" ? "checked=\"checked\"" : "" %>></td>
-                  <td align="left"><a href="#" onclick="document.forms.editfeeds.submit()">Save</a> | <a href="config">Cancel</a></td>
+                  <td align="left" width="13%"><input type="text" name="agency" value="<%= url["agency"] %>"></td>
+                  <td align="left" width="13%"><input type="text" name="dirname" value="<%= url["dirname"] %>"></td>
+                  <td align="left" width="56%"><input type="text" name="url" size="100" value="<%= url["url"] %>"></td>
+                  <td align="left" width="6%"><input type="checkbox" name="active" value="1" <%= url["active"] == "1" ? "checked=\"checked\"" : "" %>></td>
+                  <td align="left" width="12%"><a href="#" onclick="document.forms.editfeeds.submit()">Save</a> | <a href="config">Cancel</a></td>
                 </tr>
             <% else %>
                 <tr>
-                  <td align="left"><%= url["agency"] %></td>
-                  <td align="left"><%= url["dirname"] %></td>
-                  <td align="left"><%= url["url"] %></td>
-                  <td align="left"><input type="checkbox" <%= url["active"] == "1" ? "checked=\"checked\"" : "" %> disabled="disabled"></td>
-                  <td align="left"><a href="config?editfeed=<%= url["dirname"] %>">Edit</a> | <a href="config?delfeed=<%= url["dirname"] %>">Delete</a></td>
+                  <td align="left" width="13%"><%= url["agency"] %></td>
+                  <td align="left" width="13%"><%= url["dirname"] %></td>
+                  <td align="left" width="56%"><%= url["url"] %></td>
+                  <td align="left" width="6%"><input type="checkbox" <%= url["active"] == "1" ? "checked=\"checked\"" : "" %> disabled="disabled"></td>
+                  <td align="left" width="12%"><a href="config?editfeed=<%= url["dirname"] %>">Edit</a> | <a href="config?delfeed=<%= url["dirname"] %>">Delete</a></td>
                 </tr>
             <% end %>
-
         <% end %>
       </form>
 
-      <form name="addfeed" action="config?addfeed=1" method="post">
+      <form name="addfeed" action="config?addfeed=1" method="post" style="width:100%">
         <% if @editfeed.nil? %>
             <tr>
-              <td align="left"><input type="text" name="agency" value=""></td>
-              <td align="left"><input type="text" name="dirname" value=""></td>
-              <td align="left"><input type="text" name="url" size="100" value=""></td>
-              <td align="left"><input type="checkbox" name="active" value="1"></td>
-              <td align="left"><a href="#" onclick="document.forms.addfeed.submit()">Add</a></td>
+              <td align="left" width="13%"><input type="text" name="agency" value="" size="15"></td>
+              <td align="left" width="13%"><input type="text" name="dirname" value="" size="15"></td>
+              <td align="left" width="56%"><input type="text" name="url" value="" size="87"></td>
+              <td align="left" width="6%"><input type="checkbox" name="active" value="1"></td>
+              <td align="left" width="12%"><a href="#" onclick="document.forms.addfeed.submit()">Add</a></td>
             </tr>
-
         <% end %>
       </form>
-
     </table>
 
+<!-- Not authenticated -->
 <% else %>
 
     <form action="config" method="post">
