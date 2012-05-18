@@ -17,12 +17,15 @@
 
   function populate_routes(agency) {
       $("#route").html("");
+
+
       switch(agency) {
       <% @agencies.each do |agency| %>
-      case '<%= agency.agency_id %>':
+          case '<%= agency.agency_id %>':
+              $("#route").append("<option value='<%= agency.agency_id %>_all'>(All routes)</option>");
               <% @routes.each do |route|
                     if route.agency_id == agency.agency_id %>
-             $("#route").append("<option value='<%= route.route_id %>'><%= route.route_long_name %></option>");
+              $("#route").append("<option value='<%= route.route_id %>'><%= route.route_long_name %></option>");
               <%    end
                  end %>
              break;
@@ -32,8 +35,28 @@
   }
 
   function update_map () {
-      $("#map").attr("src", "api?routes=" + $("#route option:selected").attr("value"));
-      $("#url").html("api?routes=" + $("#route option:selected").attr("value"));
+      var para = ""; // parameter string to attach to the URL
+
+      var selectedAgency = $("#agency option:selected").attr("value");
+      var selectedRoute = $("#route option:selected").attr("value");
+      var len = selectedRoute.length;
+      var idx = selectedRoute.lastIndexOf("_all");
+
+      // All routes, not selected an actual route
+      if (idx == len-4) {
+          para = "agencies=" + selectedAgency;
+      }
+      else {
+          para = "routes=" + selectedRoute;
+      }
+
+      // Check to show curved lines
+      if (document.getElementById("showShape").checked == true) {
+          para += "&showShapes=1";
+      }
+
+      $("#map").attr("src", "api?" + para);
+      $("#url").html("api?" + para);
   }
 </script>
 
@@ -51,6 +74,10 @@
     <tr>
       <td>Route: </td>
       <td><select id="route" name="route"></select></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><input type="checkbox" id="showShape" name="showShape" />   Check to follow the roads with the lines!</td>
     </tr>
     <tr>
       <td></td>
