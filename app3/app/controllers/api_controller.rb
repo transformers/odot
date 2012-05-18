@@ -13,6 +13,7 @@ class ApiController < ApplicationController
           unless @routes.key?(route.route_id)
             color = "#" + (route.route_color.length == 6 ? route.route_color : generate_color())
             @routes[route.route_id] = route
+            @routes[route.route_id].route_color = color
           end
         end
       end
@@ -25,6 +26,7 @@ class ApiController < ApplicationController
           unless @routes.key?(route.route_id)
             color = "#" + (route.route_color.length == 6 ? route.route_color : generate_color())
             @routes[route.route_id] = route
+            @routes[route.route_id].route_color = color
           end
         end
       end
@@ -39,7 +41,7 @@ class ApiController < ApplicationController
         sps.each do |shape|
           unless @shapes.key?(shape.shape_id)
             pts = Agency.find_by_sql("select shape_pt_lon, shape_pt_lat from shapes where shape_id = '#{shape.shape_id}' order by convert(shape_pt_sequence, signed)")
-            shp = Shape.new (shape.shape_id)
+            shp = Shape.new(shape.shape_id, route.route_color)
             pts.each do |pt|
               shp.points.push(LLPoint.new(pt.shape_pt_lat, pt.shape_pt_lon))
             end
@@ -53,9 +55,17 @@ class ApiController < ApplicationController
     @connections = {}
     dupstops = {}
 
+    @minlat = 500
+    @maxlat = -500
+    @minlon = 500
+    @maxlon = -500
+
     @routes.each do |rid, route|
-      stops = Agency.find_by_sql("select stop_id, stop_lat, stop_lon, stop_name, stop_desc, stop_url from stops where stop_id in (select stop_id from stop_times where trip_id in (select trip_id from trips where route_id='#{rid}'))")
-      stops.each do |stop|
+      str = "select stop_id, stop_lat, stop_lon, stop_name, stop_desc, stop_url from stops where stop_id in (select distinct stop_times.stop_id from stop_times, trips where trips.route_id='#{rid}' and stop_times.trip_id=trips.trip_id)"
+      #stops = Agency.find_by_sql("select stop_id, stop_lat, stop_lon, stop_name, stop_desc, stop_url from stops where stop_id in (select distinct stop_times.stop_id from stop_times, trips where trips.route_id='#{rid}' and stop_times.trip_id=trips.trip_id)")
+      stop_ids = Agency.find_by_sql("select distinct stop_times.stop_id from stop_times, trips where trips.route_id='#{rid}' and stop_times.trip_id=trips.trip_id")
+      stop_ids.each do |stop_id|
+        stop = Agency.find_by_sql("select stop_id, stop_lat, stop_lon, stop_name, stop_desc, stop_url from stops where stop_id='#{stop_id.stop_id}'").first
         if @stops.key?(stop.stop_id) || dupstops.key?(stop.stop_id)
           key = dupstops.key?(stop.stop_id) ? dupstops[stop.stop_id] : stop.stop_id
           unless @stops[key].routes.include?(rid)
@@ -72,6 +82,12 @@ class ApiController < ApplicationController
         end
 
         unless dupstops.key?(stop.stop_id)
+          @minlat = stop.stop_lat.to_f if stop.stop_lat.to_f < @minlat
+          @maxlat = stop.stop_lat.to_f if stop.stop_lat.to_f > @maxlat
+          @minlon = stop.stop_lon.to_f if stop.stop_lon.to_f < @minlon
+          @maxlon = stop.stop_lon.to_f if stop.stop_lon.to_f > @maxlon
+
+
           @stops[stop.stop_id] = Stop.new(stop.stop_id, LLPoint.new(stop.stop_lat, stop.stop_lon), stop.stop_name, stop.stop_desc, stop.stop_url)
           @stops[stop.stop_id].routes.push(rid)
         end
@@ -124,10 +140,11 @@ class Stop
 end
 
 class Shape
-  attr_accessor :id, :points
+  attr_accessor :id, :points, :color
 
-  def initialize (id)
+  def initialize (id, color)
     @id = id
+    @color = color
     @points = []
   end
 end
