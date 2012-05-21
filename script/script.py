@@ -138,8 +138,8 @@ def update_data_file (path, file):
 	#tablename = filename - last 4 chars (.txt)
 	table = file[:-4]
 
-	cursor = run_query("show columns from " + table)
-	for col in cursor.fetchall():
+	res = run_query("show columns from " + table)
+	for col in res:
 		fieldnames.append(col[0])
 
 	for row in csv_reader:
@@ -183,8 +183,8 @@ def insert_row (table, values):
                      "shape_id", "fare_id", "origin_id", "destination_id", "contains_id", "from_stop_id", "to_stop_id"]
 
 	if table in unique_fields.keys():
-		cursor = run_query("select * from " + table + " where " + unique_fields[table] + "='" + values[unique_fields[table]] + "'")
-		if cursor.fetchone() is not None:
+		res = run_query("select * from " + table + " where " + unique_fields[table] + "='" + values[unique_fields[table]] + "'", True)
+		if res is not None:
 			print "WARNING: Duplicate unique key " + unique_fields[table] + " in table " + table
 
 	query = "insert into " + table + " ("
@@ -203,15 +203,15 @@ def insert_row (table, values):
 	run_query (query)
 
 	if (table == "agency" and "agency_id" not in values):
-                cursor = run_query("select max(id) from agency")
-                run_query ("update agency set agency_id='" + agency_id + "' where id = " + str(cursor.fetchone()[0]))
+                res = run_query("select max(id) from agency", True)
+                run_query ("update agency set agency_id='" + agency_id + "' where id = " + str(res[0]))
         if (table == "routes" and "agency_id" not in values):
-                cursor = run_query("select max(id) from routes")
-                run_query ("update routes set agency_id='" + agency_id + "' where id = " + str(cursor.fetchone()[0]))
+                res = run_query("select max(id) from routes", True)
+                run_query ("update routes set agency_id='" + agency_id + "' where id = " + str(res[0]))
 
 # Execute a query
 # query: the query will be executed
-def run_query (query):
+def run_query (query, onerow = False):
 	try:
 		db = MySQLdb.connect(DB_HOST, DB_USER, DB_PASS, DB_NAME)
 	except MySQLdb.Error:
@@ -224,14 +224,33 @@ def run_query (query):
 	except MySQLdb.Error, e:
 		print "ERROR: MySQL error: " + e.args[1]
 
+	if(onerow):
+		res = cursor.fetchone()
+	else:
+		res = cursor.fetchall()
+
+	cursor.close();
+	db.commit()
 	db.close()
 
-	return cursor
+	return res
 
 def escape_string (str):
 	str = str.replace("'", "\\'")
 	str = str.replace('"', '\\"')
 	return str 
+
+"""
+read_config()
+#run_query("drop table test1")
+#run_query("create table test1( id int(11) not null primary key auto_increment )")
+run_query("delete from test1")
+for i in range(1000):
+	query = "insert into test1() values ()"
+	run_query(query)
+	print query
+print "Complete"
+"""
 
 print "**************************************"
 print "ODOT Transit Network and Reporting App"
