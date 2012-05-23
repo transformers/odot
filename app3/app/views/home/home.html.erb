@@ -16,21 +16,28 @@
   }
 
   function populate_routes(agency) {
+      rName = "";
+
       $("#route").html("");
 
-
       switch(agency) {
-      <% @agencies.each do |agency| %>
+              <% @agencies.each do |agency| %>
           case '<%= agency.agency_id %>':
               $("#route").append("<option value='<%= agency.agency_id %>_all'>(All routes)</option>");
-              <% @routes.each do |route|
-                    if route.agency_id == agency.agency_id %>
-              $("#route").append("<option value='<%= route.route_id %>'><%= route.route_long_name %></option>");
-              <%    end
-                 end %>
-             break;
+          <% @routes.each do |route|
+                if (route.agency_id == agency.agency_id)
+                    rName = (route.route_long_name).strip   # trim space
+                    # some routes don't have route_long_name
+                    if (rName.length == 0)
+                        rName = "- Unknown -"
+                    end
+          %>
+              $("#route").append("<option value='<%= route.route_id %>'><%= rName %></option>");
+          <%    end
+         end %>
+              break;
 
-      <% end %>
+              <% end %>
       }
   }
 
