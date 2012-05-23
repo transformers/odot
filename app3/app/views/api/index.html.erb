@@ -115,7 +115,7 @@
         %>
 
         //document.write("8");
-        var zoom=10
+        var zoom=9
 
         map.setCenter (new OpenLayers.LonLat(<%= (@minlon + @maxlon)/2 %>, <%= (@minlat + @maxlat)/2 %>).transform(new OpenLayers.Projection("EPSG:4326"), map.getProjectionObject()), zoom);
         lineLayer.redraw();

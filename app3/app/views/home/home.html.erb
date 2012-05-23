@@ -62,6 +62,9 @@
 
 <h1>Welcome to our application!</h1>
 
+<table border="0">
+  <tr><td width="25%" style="margin-right:50px" valign="top">
+    <h3>1. Select a Route:</h3>
 <form>
   <table>
     <tr>
@@ -79,15 +82,16 @@
       <td></td>
       <td><input type="checkbox" id="showShape" name="showShape" />   Check to follow the roads with the lines!</td>
     </tr>
-    <tr>
-      <td></td>
-      <td><input type="button" value="Go!" onclick="update_map()"></td>
-    </tr>
   </table>
+
+    <h3>2. Show it on the map!</h3>
+
+      <input type="button" value="Go!" onclick="update_map()">
 </form>
 
-<br>
-<iframe id="map" src="http://www.google.com" height="800" width="100%"></iframe>
+</td><td>
+
+<iframe id="map" src="http://www.google.com" height="600" width="100%"></iframe>
 <br><br>
 
 <p align="center">To embed this map into your website, copy and paste the code below to your website's html.
@@ -97,3 +101,5 @@
   &nbsp;&nbsp;&nbsp;<tt>&lt;iframe src="http://gtfs-test.com/<span id="url"></span>"&gt;&lt;/iframe&gt;</tt>&nbsp;&nbsp;&nbsp;
 </span>
 </p>
+
+</td></tr></table>
