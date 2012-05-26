@@ -1,29 +1,30 @@
 <script>
   $(function() {
       populate_agencies();
-      populate_routes($("#agency option:selected").attr("value"));
-      update_map();
+      populate_routes($("#cboAgency option:selected").attr("value"));
 
-      $("#agency").change(function() {
-          populate_routes($("#agency option:selected").attr("value"));
+      //show_map();
+
+      $("#cboAgency").change(function() {
+          populate_routes($("#cboAgency option:selected").attr("value"));
       })
   });
 
   function populate_agencies() {
       <% @agencies.each do |agency| %>
-      $("#agency").append("<option value='<%= agency.agency_id %>'><%= agency.agency_name %></option>");
+      $("#cboAgency").append("<option value='<%= agency.agency_id %>'><%= agency.agency_name %></option>");
       <% end %>
   }
 
   function populate_routes(agency) {
       rName = "";
 
-      $("#route").html("");
+      $("#cboRoute").html("");
 
       switch(agency) {
-              <% @agencies.each do |agency| %>
+          <% @agencies.each do |agency| %>
           case '<%= agency.agency_id %>':
-              $("#route").append("<option value='<%= agency.agency_id %>_all'>(All routes)</option>");
+              $("#cboRoute").append("<option value='<%= agency.agency_id %>_all'>(All routes)</option>");
           <% @routes.each do |route|
                 if (route.agency_id == agency.agency_id)
                     rName = (route.route_long_name).strip   # trim space
@@ -32,33 +33,174 @@
                         rName = "- Unknown -"
                     end
           %>
-              $("#route").append("<option value='<%= route.route_id %>'><%= rName %></option>");
+              $("#cboRoute").append("<option value='<%= route.route_id %>'><%= rName %></option>");
           <%    end
-         end %>
-              break;
-
-              <% end %>
+             end %>
+             break;
+          <% end %>
       }
   }
 
-  function update_map () {
-      var para = ""; // parameter string to attach to the URL
+  // check if a pair Agency - Route exists or not
+  function isRouteAlreadyExist(lAgency,valAgency, lRoute, valRoute){
+      var exists = false;
 
-      var selectedAgency = $("#agency option:selected").attr("value");
-      var selectedRoute = $("#route option:selected").attr("value");
-      var len = selectedRoute.length;
-      var idx = selectedRoute.lastIndexOf("_all");
+      for (var i=0; i<lAgency.options.length; i++) {
+          if (lAgency.options[i].value==valAgency && lRoute.options[i].value==valRoute) {
+              exists = true;
+              break;
+          }
+      }
 
-      // All routes, not selected an actual route
-      if (idx == len-4) {
-          para = "agencies=" + selectedAgency;
+      return exists;
+  }
+
+  // add a pair of Agency - Route to list to display on a map
+  function add_to_list() {
+      var comboAgency = document.getElementById("cboAgency");
+      var listAgency = document.getElementById("lstAgency");
+      var optAgency;
+
+      var comboRoute = document.getElementById("cboRoute");
+      var listRoute = document.getElementById("lstRoute");
+      var optRoute;
+
+      optAgency = document.createElement("Option");
+      optAgency.value = comboAgency.options[comboAgency.selectedIndex].value;
+      optAgency.text = comboAgency.options[comboAgency.selectedIndex].text + "- [" +
+              comboRoute.options[comboRoute.selectedIndex].text + "]";
+
+      optRoute = document.createElement("Option");
+      optRoute.value = comboRoute.options[comboRoute.selectedIndex].value;
+      optRoute.text = comboRoute.options[comboRoute.selectedIndex].text;
+
+      // check for existed routes in the list
+      if (isRouteAlreadyExist(listAgency, optAgency.value, listRoute, optRoute.value)) {
+          alert ('Route already exists!');
+          comboRoute.focus();
+
+          return false;
+      }
+
+      listAgency.add(optAgency);
+      listRoute.add(optRoute);
+      
+      optAgency = null;
+      optRoute = null;
+  }
+
+  // remove a pair of Agency - Route from the list
+  function remove_from_list() {
+      var listAgency = document.getElementById("lstAgency");
+      var listRoute = document.getElementById("lstRoute");
+
+      if (listAgency.selectedIndex >= 0) {
+          listAgency.remove(listAgency.selectedIndex);
+          listRoute.remove(listRoute.selectedIndex);
       }
       else {
-          para = "routes=" + selectedRoute;
+          alert ('Please select a pair of Agency - Route to remove!');
+          return false;
+      }
+  }
+
+  // clear the Agency-Route list, start a new map
+  function clear_list() {
+      document.getElementById("lstAgency").options.length = 0;
+      document.getElementById("lstRoute").options.length = 0;
+  }
+
+  // show selected Agency and Route (of the dropdowns) depended on selecting Agency-Route of the list
+  function do_select() {
+      var comboAgency = document.getElementById("cboAgency");
+      var listAgency = document.getElementById("lstAgency");
+
+      var comboRoute = document.getElementById("cboRoute");
+      var listRoute = document.getElementById("lstRoute");
+
+      // set the selected item for Route list
+      listRoute.selectedIndex = listAgency.selectedIndex;
+
+      // set selected item for Agency dropdown
+      for (var i=0; i<comboAgency.options.length; i++) {
+          if (comboAgency.options[i].value == listAgency.options[listAgency.selectedIndex].value) {
+              comboAgency.selectedIndex = i;
+              populate_routes(listAgency.options[listAgency.selectedIndex].value);
+              break;
+          }
+      }
+
+      // set selected item for Route dropdown
+      for (var j=0; j<comboRoute.options.length; j++) {
+          if (comboRoute.options[j].value == listRoute.options[listRoute.selectedIndex].value) {
+              comboRoute.selectedIndex = j;
+              break;
+          }
+      }
+  }
+
+  // show all selected Agency - Route on a map
+  function show_map() {
+      var para = ""; // parameter string to attach to the URL
+
+      // single agency
+      if (document.getElementById("lstAgency").options.length == 0) {
+          var selectedAgency = $("#cboAgency option:selected").attr("value");
+          var selectedRoute = $("#cboRoute option:selected").attr("value");
+          var len = selectedRoute.length;
+          var idx = selectedRoute.lastIndexOf("_all");
+
+          // All routes, not selected an actual route
+          if (idx == len-4) {
+              para = "agencies=" + selectedAgency;
+          }
+          else {
+              para = "routes=" + selectedRoute;
+          }
+      }
+      // multiple agencies
+      else {
+          var listAgency = document.getElementById("lstAgency");
+          var listRoute = document.getElementById("lstRoute");
+          var strAgencies = "";
+          var strRoutes = "";
+
+          for (var i=0; i<listAgency.options.length; i++) {
+              var len = listRoute.options[i].value.length;
+              var idx = listRoute.options[i].value.lastIndexOf("_all");
+
+              // All routes, not selected an actual route
+              if (idx == len-4) {
+                  strAgencies += listAgency.options[i].value + ",";
+              }
+              else {
+                  strRoutes += listRoute.options[i].value + ",";
+              }
+          }
+
+          if (strAgencies.length > 1) {
+              strAgencies = "agencies=" + strAgencies.substr(0, strAgencies.length-1);
+
+              if (strRoutes.length > 1) {
+                  strRoutes = "routes=" + strRoutes.substr(0, strRoutes.length-1);
+
+                  para = strAgencies + "&" + strRoutes;
+              }
+              else {
+                  para = strAgencies;
+              }
+          }
+          else {
+              if (strRoutes.length > 1) {
+                  strRoutes = "routes=" + strRoutes.substr(0, strRoutes.length-1);
+
+                  para = strRoutes;
+              }
+          }
       }
 
       // Check to show curved lines
-      if (document.getElementById("showShape").checked == true) {
+      if (document.getElementById("chkShowShape").checked == true) {
           para += "&showShapes=1";
       }
 
@@ -72,29 +214,43 @@
 <table border="0">
   <tr><td width="25%" style="margin-right:50px" valign="top">
     <h3>1. Select a Route:</h3>
-<form>
-  <table>
-    <tr>
-      <td colspan="2">Please select a route below and click display to see it on the map.</td>
-    </tr>
-    <tr>
-      <td>Agency: </td>
-      <td><select id="agency" name="agency"></select></td>
-    </tr>
-    <tr>
-      <td>Route: </td>
-      <td><select id="route" name="route"></select></td>
-    </tr>
-    <tr>
-      <td></td>
-      <td><input type="checkbox" id="showShape" name="showShape" />   Check to follow the roads with the lines!</td>
-    </tr>
-  </table>
+    <form>
+      <table>
+        <tr>
+          <td colspan="2">Please select a route.</td>
+        </tr>
+        <tr>
+          <td>Agency: </td>
+          <td><select id="cboAgency" name="cboAgency"></select></td>
+        </tr>
+        <tr>
+          <td>Route: </td>
+          <td><select id="cboRoute" name="cboRoute"></select></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>
+            <input type="button" value="Add to map" style="width:90px" onclick="add_to_list()">
+            <input type="button" value="Remove ..." style="width:90px" onclick="remove_from_list()">
+            <input type="button" value="New map" style="width:90px" onclick="clear_list()">
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>
+            <select id="lstAgency" name="lstAgency" size="5" style="width:277px" onchange="do_select()" >
+            </select>
+            <select id="lstRoute" name="lstRoute" style="visibility: hidden;" >
+            </select>
+          </td>
+        </tr>
+      </table>
 
-    <h3>2. Show it on the map!</h3>
+      <h3>2. Show it on the map!</h3>
 
-      <input type="button" value="Go!" onclick="update_map()">
-</form>
+      <input type="checkbox" id="chkShowShape" name="chkShowShape" />   Check to follow the roads with the lines!<br><br>
+      <input type="button" id="btnShowMap" name="btnShowMap" value="Go!" onclick="show_map()">
+    </form>
 
 </td><td>
 
