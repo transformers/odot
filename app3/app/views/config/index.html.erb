@@ -10,6 +10,34 @@
 
 <% if @authenticated %>
 
+    <h3>Admin Users</h3>
+
+    <table border="1">
+      <tr>
+        <th align="left">Username</th>
+        <th align="left">Password</th>
+        <th align="left">Action</th>
+      </tr>
+
+        <%
+           @xml.css("gtfs user").each do |user|
+        %>
+                <tr>
+                  <td align="left"><%= user["name"] %></td>
+                  <td align="left"><%= user["pass"] %></td>
+                  <td align="left"><a href="config?deluser=<%= user["name"] %>">Delete</a></td>
+                </tr>
+        <% end %>
+
+      <form name="adduser" action="config?adduser=1" method="post">
+            <tr>
+              <td align="left"><input type="text" name="name" value="" size="15"></td>
+              <td align="left"><input type="text" name="pass" value="" size="15"></td>
+              <td align="left"><a href="#" onclick="document.forms.adduser.submit()">Add</a></td>
+            </tr>
+      </form>
+    </table>
+
     <h3>Update Data Sources</h3>
 
     <table border="1" width="100%">
@@ -18,6 +46,7 @@
         <th align="left" style="width:13%">String</th>
         <th align="left" style="width:56%">URL</th>
         <th align="left" style="width:6%">Active</th>
+        <th align="left" style="width:6%">Update</th>
         <th align="left" style="width:12%">Action</th>
       </tr>
 
@@ -32,6 +61,7 @@
                   <td align="left" width="13%"><input type="text" name="dirname" value="<%= url["dirname"] %>"></td>
                   <td align="left" width="56%"><input type="text" name="url" size="100" value="<%= url["url"] %>"></td>
                   <td align="left" width="6%"><input type="checkbox" name="active" value="1" <%= url["active"] == "1" ? "checked=\"checked\"" : "" %>></td>
+                  <td align="left" width="6%"><input type="checkbox" name="update" value="1" <%= url["update"] == "1" ? "checked=\"checked\"" : "" %>></td>
                   <td align="left" width="12%"><a href="#" onclick="document.forms.editfeeds.submit()">Save</a> | <a href="config">Cancel</a></td>
                 </tr>
             <% else %>
@@ -40,6 +70,7 @@
                   <td align="left" width="13%"><%= url["dirname"] %></td>
                   <td align="left" width="56%"><%= url["url"] %></td>
                   <td align="left" width="6%"><input type="checkbox" <%= url["active"] == "1" ? "checked=\"checked\"" : "" %> disabled="disabled"></td>
+                  <td align="left" width="6%"><input type="checkbox" <%= url["update"] == "1" ? "checked=\"checked\"" : "" %> disabled="disabled"></td>
                   <td align="left" width="12%"><a href="config?editfeed=<%= url["dirname"] %>">Edit</a> | <a href="config?delfeed=<%= url["dirname"] %>">Delete</a></td>
                 </tr>
             <% end %>
@@ -53,11 +84,26 @@
               <td align="left" width="13%"><input type="text" name="dirname" value="" size="15"></td>
               <td align="left" width="56%"><input type="text" name="url" value="" size="87"></td>
               <td align="left" width="6%"><input type="checkbox" name="active" value="1"></td>
+              <td align="left" width="6%"><input type="checkbox" name="update" value="0"></td>
               <td align="left" width="12%"><a href="#" onclick="document.forms.addfeed.submit()">Add</a></td>
             </tr>
         <% end %>
       </form>
     </table>
+
+    <br>
+
+    <form name="runscript" action="config?runscript=1" method="post">
+      <input type="submit" value="Run Script" onclick="$('#runstatus').html('Script is running...')">
+    </form>
+    <br>
+    <span id="runstatus">
+    <% if @scriptrun %>
+        </span><b>Update script was run. Click link below to see output.</b>
+    <% end %>
+    </span>
+    <br><br>
+    <a href="config/output">Latest Script Output</a>
 
 <!-- Not authenticated -->
 <% else %>

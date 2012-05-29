@@ -1,0 +1,20 @@
+**************************************
+ODOT Transit Network and Reporting App
+Database Update Script
+Copyright(c) 2012
+**************************************
+
+Reading config...
+
+Downloading data...
+Downloading from http://oregon-gtfs.com/gtfs_data/lincolncounty-or-us/google_transit.zip into ./feeds/lincoln/
+Downloading from http://www.gtfs-data-exchange.com/agency/curry-public-transit/latest.zip into ./feeds/curry/
+
+Updating data...
+Updating data for lincoln...
+WARNING: Unsupported fieldname "agency_id detected in ./feeds/lincoln/fare_attributes.txt
+WARNING: Unsupported fieldname "service_name detected in ./feeds/lincoln/calendar.txt
+WARNING: Unsupported fieldname "trip_bikes_allowed detected in ./feeds/lincoln/trips.txt
+Updating data for curry...
+
+Complete.
