@@ -19,14 +19,12 @@
         <th align="left">Action</th>
       </tr>
 
-        <%
-           @xml.css("gtfs user").each do |user|
-        %>
-                <tr>
-                  <td align="left"><%= user["name"] %></td>
-                  <td align="left"><%= user["pass"] %></td>
-                  <td align="left"><a href="config?deluser=<%= user["name"] %>">Delete</a></td>
-                </tr>
+        <% @xml.css("gtfs user").each do |user| %>
+            <tr>
+              <td align="left"><%= user["name"] %></td>
+              <td align="left"><%= user["pass"] %></td>
+              <td align="left"><a href="config?deluser=<%= user["name"] %>">Delete</a></td>
+            </tr>
         <% end %>
 
       <form name="adduser" action="config?adduser=1" method="post">
@@ -51,10 +49,7 @@
       </tr>
 
       <form name="editfeeds" action="config?savefeed=<%= @editfeed %>" method="post" style="width:100%">
-        <%
-           @xml.css("gtfs entry").each do |url|
-        %>
-
+        <% @xml.css("gtfs entry").each do |url| %>
             <% if !@editfeed.nil? and @editfeed == url["dirname"] %>
                 <tr>
                   <td align="left" width="13%"><input type="text" name="agency" value="<%= url["agency"] %>"></td>

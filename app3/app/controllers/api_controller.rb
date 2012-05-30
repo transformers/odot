@@ -1,6 +1,6 @@
 class ApiController < ApplicationController
   def index
-    file = File.new("../../proj/script/config.xml", "r+")
+    file = File.new("../../proj/app3/config.xml", "r+")
     @xml = Nokogiri::XML(file)
     file.close
 
@@ -61,8 +61,6 @@ class ApiController < ApplicationController
     @maxlon = -500
 
     @routes.each do |rid, route|
-      str = "select stop_id, stop_lat, stop_lon, stop_name, stop_desc, stop_url from stops where stop_id in (select distinct stop_times.stop_id from stop_times, trips where trips.route_id='#{rid}' and stop_times.trip_id=trips.trip_id)"
-      #stops = Agency.find_by_sql("select stop_id, stop_lat, stop_lon, stop_name, stop_desc, stop_url from stops where stop_id in (select distinct stop_times.stop_id from stop_times, trips where trips.route_id='#{rid}' and stop_times.trip_id=trips.trip_id)")
       stop_ids = Agency.find_by_sql("select distinct stop_times.stop_id from stop_times, trips where trips.route_id='#{rid}' and stop_times.trip_id=trips.trip_id")
       stop_ids.each do |stop_id|
         stop = Agency.find_by_sql("select stop_id, stop_lat, stop_lon, stop_name, stop_desc, stop_url from stops where stop_id='#{stop_id.stop_id}'").first
@@ -86,7 +84,6 @@ class ApiController < ApplicationController
           @maxlat = stop.stop_lat.to_f if stop.stop_lat.to_f > @maxlat
           @minlon = stop.stop_lon.to_f if stop.stop_lon.to_f < @minlon
           @maxlon = stop.stop_lon.to_f if stop.stop_lon.to_f > @maxlon
-
 
           @stops[stop.stop_id] = Stop.new(stop.stop_id, LLPoint.new(stop.stop_lat, stop.stop_lon), stop.stop_name, stop.stop_desc, stop.stop_url)
           @stops[stop.stop_id].routes.push(rid)
@@ -116,6 +113,7 @@ class ApiController < ApplicationController
   end
 end
 
+# Generate randomly different colors for different routes
 def generate_color()
   res = ""
   n = [rand(50), rand(255), rand(255)].shuffle!
