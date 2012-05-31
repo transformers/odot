@@ -67,7 +67,8 @@
 
       optAgency = document.createElement("Option");
       optAgency.value = comboAgency.options[comboAgency.selectedIndex].value;
-      optAgency.text = comboAgency.options[comboAgency.selectedIndex].text + "- [" +
+      // display Agency - [Route] as an item in the list
+      optAgency.text = comboAgency.options[comboAgency.selectedIndex].text + " - [" +
               comboRoute.options[comboRoute.selectedIndex].text + "]";
 
       optRoute = document.createElement("Option");
