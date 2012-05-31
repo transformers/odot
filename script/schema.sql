@@ -22,7 +22,8 @@ create table agency (
 	agency_timezone varchar(255) not null,
 	agency_lang varchar(5),
 	agency_phone varchar(255),
-	agency_fare_url varchar(1023)
+	agency_fare_url varchar(1023),
+	agency_str varchar(255) not null
 );
 
 create table stops (
@@ -37,7 +38,8 @@ create table stops (
 	stop_url varchar(1023),
 	location_type varchar(5),
 	parent_station varchar(100),
-	stop_timezone varchar(50)
+	stop_timezone varchar(50),
+	agency_str varchar(255) not null
 );
 
 create table routes (
@@ -50,7 +52,8 @@ create table routes (
 	route_type varchar(5) not null,
 	route_url varchar(1024),
 	route_color varchar(50),
-	route_text_color varchar(50)
+	route_text_color varchar(50),
+	agency_str varchar(255) not null
 );
 
 create table trips (
@@ -62,7 +65,8 @@ create table trips (
 	trip_short_name varchar(255),
 	direction_id varchar(5),
 	block_id varchar(100),
-	shape_id varchar(100)
+	shape_id varchar(100),
+	agency_str varchar(255) not null
 );
 
 create table stop_times (
@@ -75,7 +79,8 @@ create table stop_times (
 	stop_headsign varchar(255),
 	pickup_type varchar(5),
 	drop_off_type varchar(5),
-	shape_dist_traveled varchar(50)
+	shape_dist_traveled varchar(50),
+	agency_str varchar(255) not null
 );
 
 create table calendar (
@@ -89,14 +94,16 @@ create table calendar (
 	saturday varchar(5) not null,
 	sunday varchar(5) not null,
 	start_date varchar(50) not null,
-	end_date varchar(50) not null
+	end_date varchar(50) not null,
+	agency_str varchar(255) not null
 );
 
 create table calendar_dates (
 	id int(11) not null primary key auto_increment,
 	service_id varchar(100) not null,
 	date varchar(50) not null,
-	exception_type varchar(5) not null
+	exception_type varchar(5) not null,
+	agency_str varchar(255) not null
 );
 
 create table fare_attributes (
@@ -106,7 +113,8 @@ create table fare_attributes (
 	currency_type varchar(50) not null,
 	payment_method varchar(5) not null,
 	transfers varchar(5) not null,
-	transfer_duration varchar(15)
+	transfer_duration varchar(15),
+	agency_str varchar(255) not null
 );
 
 create table fare_rules (
@@ -115,7 +123,8 @@ create table fare_rules (
 	route_id varchar(100),
 	origin_id varchar(100),
 	destination_id varchar(100),
-	contains_id varchar(100)
+	contains_id varchar(100),
+	agency_str varchar(255) not null
 );
 
 create table shapes (
@@ -124,7 +133,8 @@ create table shapes (
 	shape_pt_lat varchar(50) not null,
 	shape_pt_lon varchar(50) not null,
 	shape_pt_sequence varchar(15) not null,
-	shape_dist_traveled varchar(50)
+	shape_dist_traveled varchar(50),
+	agency_str varchar(255) not null
 );
 
 create table frequencies (
@@ -133,7 +143,8 @@ create table frequencies (
 	start_time varchar(50) not null,
 	end_time varchar(50) not null,
 	headway_secs varchar(15) not null,
-	exact_times varchar(5)
+	exact_times varchar(5),
+	agency_str varchar(255) not null
 );
 
 create table transfers (
@@ -141,7 +152,8 @@ create table transfers (
 	from_stop_id varchar(100) not null,
 	to_stop_id varchar(100)  not null,
 	transfer_type varchar(5) not null,
-	min_transfer_time varchar(15)
+	min_transfer_time varchar(15),
+	agency_str varchar(255) not null
 );
 
 create table feed_info (
@@ -151,5 +163,6 @@ create table feed_info (
 	feed_lang varchar(50) not null,
 	feed_start_date varchar(50),
 	feed_end_date varchar(50),
-	feed_version varchar(50)
+	feed_version varchar(50),
+	agency_str varchar(255) not null
 );
