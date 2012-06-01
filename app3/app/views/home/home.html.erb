@@ -1,3 +1,5 @@
+<%= stylesheet_link_tag "application.css" %>
+
 <script>
   $(function() {
       populate_agencies();
@@ -222,11 +224,11 @@
         </tr>
         <tr>
           <td>Agency: </td>
-          <td><select id="cboAgency" name="cboAgency"></select></td>
+          <td><select id="cboAgency" name="cboAgency" class="agencyList" ></select></td>
         </tr>
         <tr>
           <td>Route: </td>
-          <td><select id="cboRoute" name="cboRoute"></select></td>
+          <td><select id="cboRoute" name="cboRoute" class="agencyList" ></select></td>
         </tr>
         <tr>
           <td></td>
@@ -239,7 +241,7 @@
         <tr>
           <td></td>
           <td>
-            <select id="lstAgency" name="lstAgency" size="5" style="width:277px" onchange="do_select()" >
+            <select id="lstAgency" name="lstAgency" size="5" class="agencyList" onchange="do_select()" >
             </select>
             <select id="lstRoute" name="lstRoute" style="visibility: hidden;" >
             </select>
