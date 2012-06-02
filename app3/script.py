@@ -244,11 +244,12 @@ def escape_string (str):
 	str = str.replace('"', '\\"')
 	return str 
 
-print "**************************************"
-print "ODOT Transit Network and Reporting App"
-print "Database Update Script"
-print "Copyright(c) 2012"
-print "**************************************"
+print ""
+print "******************************************"
+print "* ODOT Transit Network and Reporting App *"
+print "* Database Update Script                 *"
+print "* Copyright(c) 2012                      *"
+print "******************************************"
 
 print ""
 print "Reading config..."
