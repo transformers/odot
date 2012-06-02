@@ -11,7 +11,7 @@
 	Also, there are a few setup variables defined here.
 -->
 <gtfs>
-	<database host="localhost" user="root" pass="" dbname="gtfs"/>
+	<database host="localhost" user="root" pass="a" dbname="gtfs"/>
 
 	<datapath value="./feeds"/>
 
