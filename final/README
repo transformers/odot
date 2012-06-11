@@ -1,0 +1,39 @@
+* Database:
+	- Set up a MySQL database (must have a username and password)
+	- Connect to the MySQL database
+	- Create a new database, for example: "gtfs"
+	- Execute "schema.sql" to create a new schema in the database
+* config.xml:
+	- Contain the database's information: database's name, username, password, ...
+	- Contain username(s) and password(s) of Admin person(s) - who can use the WebApp to edit Agencies
+	- Contain Agencies's names, links to download (.zip file), and actions
+* script.py: A Python script that updates the GTFS data in the database
+	- Read database's information in "config.xml"
+	- Connect to the database
+	- Download agencies (in "config.xml" file)
+	- Update data into the database
+	- Can be executed directly by command line: "python script.py"
+	- Can be executed via a link on Admin page of the WebApp
+* output.txt: The output of the script
+	- Contains all information (info, warnings, errors, ...) after executing the python script
+* WebApp:
+	- Home: the map of the network transit
+		+ Select Agency
+		+ Select Routes of the selected Agency
+		+ "Add to map": add a selected pair of agency-route to the list (will be shown on the map)
+		+ "Remove": select a pair of agency-route that you would like to remove from map
+		+ "New map": clear the list and start a new map (new selection)
+		+ Check the checkbox if you want to follow the road with the lines
+		+ "Go": display the network transit on the map
+			If the above list is not empty, multiple pairs of agencies-routes would be displayed
+			If the above list is empty, a selected pair of agency and route (from the dropdown/combobox) would be displayed
+			Different colors (randomly) for different routes
+		+ Can copy the code in the rectangle box at the bottome page, and paste into another website to see the map
+	- Admin:
+		+ Must login to see the page
+		+ Display information about Admin users (can be editted)
+		+ Display data sources: agencies, URLs, actions, ... (can be editted)
+		+ "Run script": execute the python script (to update database)
+		+ "Latest Script Output": see the output (info, warnings, errors) after executing the script
+	- About:
+		+ About the WebApp

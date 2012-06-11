@@ -1,0 +1,132 @@
+<div id="mapdiv"></div>
+<% if(@error) %> Error with arguments. <% else %>
+    <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
+    <script>
+        map = new OpenLayers.Map("mapdiv");
+        map.addLayer(new OpenLayers.Layer.OSM());    // OpenStreetMap layer
+
+
+        // LINES (layer used for both shapes and straight lines)
+        var lineLayer = new OpenLayers.Layer.Vector("Line Layer");
+        map.addLayer(lineLayer);
+
+        var route_points;
+        var list, pt;
+        var line;
+        var style;
+        var i=0;
+        var lineFeatures = [];
+
+        <% if @showShapes %>
+
+        // route_points is an array of arrays. Each sub-array is a list of lat-lon
+        // points to be displayed for a shape, and the outer array is an array of these
+        // shapes. This structure is later used to build a LineString to display on the map.
+        route_points = [
+            <% @shapes.each do |sid, shape| %>
+            [
+                <% shape.points.each do |pt| %>
+                new OpenLayers.Geometry.Point(<%= pt.lon %>, <%= pt.lat %>),
+                <% end %>
+            ],
+            <% end %>
+        ];
+
+        // route_colors is a list of the same size as the outer list of route_points,
+        // specifying the color for each shape
+        route_colors = [
+            <% @shapes.each do |sid, shape| %>
+            "<%= shape.color %>",
+            <% end %>
+        ];
+
+        <% else %>
+
+        <% colors = [] %>
+
+        // now only 2 points per line
+        route_points = [
+            <% @connections.each do |key, val|
+         val.each do |link|
+            colors.append(@routes[@stops[key].routes[0]].route_color) %>
+            [ new OpenLayers.Geometry.Point(<%= @stops[key].pt.lon %>, <%= @stops[key].pt.lat %>),
+                new OpenLayers.Geometry.Point(<%= @stops[link].pt.lon %>, <%= @stops[link].pt.lat %>) ],
+            <% end %>
+            <% end %>
+        ];
+
+        route_colors = [
+            <% colors.each do |color| %>
+            "<%= color %>",
+            <% end %>
+        ];
+
+        <% end %>
+
+        var listI = 0; // index in route_points
+        for (list in route_points) {
+            // transform all the points into the proper projection
+            for (pt in route_points[list]) {
+                route_points[list][pt].transform(
+                        new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
+                        map.getProjectionObject() // to Spherical Mercator Projection
+                );
+            }
+
+            // create a new LineString object and style to display it in
+            line = new OpenLayers.Geometry.LineString(route_points[list]);
+            style = { strokeColor: route_colors[listI],
+                strokeOpacity: 0.5,
+                strokeWidth: 5
+            };
+
+            // add new line to the layer
+            lineFeatures.push(new OpenLayers.Feature.Vector(line, null, style));
+            listI++;
+        }
+        lineLayer.addFeatures(lineFeatures);
+
+        // STOPS
+        var markers = new OpenLayers.Layer.Markers("Markers");
+        map.addLayer(markers);
+
+        // Create a different variable and a different event handler for each individual stop.
+        // The different event handlers allow the stops to be clickable and each to display its
+        // own information.
+        <%
+            i=0
+            @stops.each do |id, stop|
+        %>
+        var marker<%= i %> = new OpenLayers.Marker(new OpenLayers.LonLat(<%= stop.pt.lon %>, <%= stop.pt.lat %>).transform(new OpenLayers.Projection("EPSG:4326"), map.getProjectionObject()));
+
+        marker<%= i %>.events.register("click", marker<%= i %>, function(e) {
+            var popup<%= i %> = new OpenLayers.Popup.FramedCloud("info<%= i %>",
+                    new OpenLayers.LonLat(<%= stop.pt.lon %>, <%= stop.pt.lat %>).transform(new OpenLayers.Projection("EPSG:4326"), map.getProjectionObject()),
+                    new OpenLayers.Size(200, 200),
+                    "<b><%= stop.name %></b><% if(stop.desc.length > 1) %><br><%= stop.desc %><% end %><br>Agency: <% if(@routes[stop.routes[0]].agency_url.length > 1) %><a href='<%= @routes[stop.routes[0]].agency_url %>'><%= @routes[stop.routes[0]].agency_name %></a><% else %><%= @routes[stop.routes[0]].agency_name %><% end %><br>Route: <% if(@routes[stop.routes[0]].route_url.length > 1) %><a href='<%= @routes[stop.routes[0]].route_url %>'><%= @routes[stop.routes[0]].route_long_name %></a><% else %><%= @routes[stop.routes[0]].route_long_name %><% end %><% if(stop.url.length > 1) %><br><a href='<%= stop.url %>'>Link</a><% end %>",
+                    null, true);
+            map.addPopup(popup<%= i %>);
+            OpenLayers.Event.stop(e);
+        });
+
+        markers.addMarker(marker<%= i %>);
+        <%    i=i+1
+            end
+        %>
+
+        // Default zoom level.
+        var zoom = <%= @zoomlevel %>
+
+        map.setCenter (new OpenLayers.LonLat(<%= (@minlon + @maxlon)/2 %>, <%= (@minlat + @maxlat)/2 %>).transform(new OpenLayers.Projection("EPSG:4326"), map.getProjectionObject()), zoom);
+
+        // Event handler to make markers layer disappear/reappear as the zoom level hits certain levels.
+        map.events.register("zoomend", map, function(e) {
+            markers.setVisibility(map.zoom > 10);
+        });
+        if(map.zoom < 10) markers.setVisibility(false);
+
+        // Redraw layers to keep them up to date.
+        lineLayer.redraw();
+        markers.redraw();
+    </script>
+<% end %>

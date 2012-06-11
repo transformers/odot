@@ -1,0 +1,23 @@
+
+******************************************
+* ODOT Transit Network and Reporting App *
+* Database Update Script                 *
+* Copyright(c) 2012                      *
+******************************************
+
+Reading config...
+
+Downloading data...
+Downloading from http://developer.trimet.org/schedule/gtfs.zip into ./feeds/portland/
+
+Updating data...
+Deleting old data...
+Updating data for portland...
+WARNING: Unsupported fieldname "feed_timezone" detected in ./feeds/portland/feed_info.txt
+WARNING: Unsupported fieldname "direction" detected in ./feeds/portland/stops.txt
+WARNING: Unsupported fieldname "position" detected in ./feeds/portland/stops.txt
+WARNING: Unsupported fieldname "timepoint" detected in ./feeds/portland/stop_times.txt
+WARNING: Unsupported fieldname "trip_type" detected in ./feeds/portland/trips.txt
+Warning: Unrecognized data file stop_features.txt found. Skipping it.
+
+Complete.
